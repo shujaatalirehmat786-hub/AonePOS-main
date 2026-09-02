@@ -1,0 +1,15 @@
+import { CTA, FAQ, SectionTitle, SiteFooter, SiteHeader } from "../components/inner-pages";
+
+const plans=[
+  {name:"BASIC PLAN",price:"$59",features:["Cloud-Based POS System","Inventory Management","Reports & Analytics","Employee Management","Support & Control"]},
+  {name:"ENTERPRISE PLAN",price:"$199",features:["Cloud-Based POS System","Inventory Management","Multi-Location Management","Reports & Analytics","Employee Management","Online Ordering","Customer Display System & Support","Kitchen Display System & Support","Dedicated Enterprise Support"]},
+  {name:"PREMIUM PLAN",price:"$149",features:["Cloud-Based POS System","Inventory & Stock Control","Multi-Location Management","Reports & Analytics","Online Ordering","Support & Control"]}
+];
+
+export default function PricingPage(){return <div className="inner-page pricing-page"><SiteHeader active="pricing"/>
+  <section className="pricing-hero"><div className="inner-container"><span className="inner-pill">Pricing Solutions</span><h1>Plans That Fit Your <span>Business</span></h1><p>The perfect POS plan designed to support businesses of every size, from small shops to large multi-store operations.</p><a className="inner-primary" href="/contact#contact-form">Book For Demo <span className="inner-arrow">→</span></a></div></section>
+  <section className="frame-section" id="details"><div className="inner-container"><SectionTitle label="Pricing Solutions" title="Plans That Fit Your Business" text="The perfect POS plan designed to support businesses of every size, from small shops to large multi-store operations."/><div className="billing-toggle"><b>Monthly</b><span>Yearly</span></div><div className="pricing-grid">{plans.map((p,i)=><article className={i===1?"featured":""} key={p.name}><div className="price-top"><small>{p.name}</small><strong>{p.price}<em>/ Per Monthly</em></strong><a href="/contact#contact-form">Get Started</a></div><h3>This Package Includes:</h3><ul>{p.features.map(x=><li key={x}>◉　{x}</li>)}</ul></article>)}</div></div></section>
+  <section className="frame-section frame-band"><div className="inner-container"><SectionTitle label="Built For Business" title="Need A Custom Plan That Suits Your Business?" text="Join businesses that trust AONEPOS to simplify their daily operations. Contact our team to get a personalized demo or a custom pricing plan."/><div className="frame-grid two"><article className="frame-card addon"><i>▤</i><h3>Online Ordering</h3><p>Get the orders from DoorDash, Uber Eats and Grubhub into your POS system.</p><b>$0 <small>/ Per Monthly</small></b></article><article className="frame-card addon"><i>⌘</i><h3>Connect With Your Tool</h3><p>Customized as per your needs to connect with tools like WooCommerce and Shopify.</p><b>$0 <small>/ Per Monthly</small></b></article></div></div></section>
+  <section className="inner-faq"><div className="inner-container"><SectionTitle label="FAQ’S" title="Frequently Asked Questions" text="Unlock real-time insights that help you grow smarter and faster."/><FAQ/></div></section>
+  <CTA/><SiteFooter/>
+</div>}
