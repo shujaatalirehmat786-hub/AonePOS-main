@@ -31,9 +31,9 @@ export function SiteFooter() {
       <div><h3>Social Links</h3><div className="inner-social"><a href="#" aria-label="Instagram">◎</a><a href="#" aria-label="Facebook">f</a><a href="#" aria-label="Twitter">♥</a><a href="#" aria-label="LinkedIn">in</a></div></div>
       <div><h3>About</h3><p>At AONEPOS, we are committed to simplifying and optimizing the way businesses operate. Our all-in-one POS solution empowers retailers and restaurants with fast sales processing, real-time inventory tracking, multi-location management and cloud-based access.</p></div>
       <div><h3>Link</h3><nav><a href="/">Home</a><a href="/products">Products</a><a href="/solutions">Solutions</a><a href="/pricing">Pricing</a><a href="/about">About</a><a href="/contact">Contact</a></nav></div>
-      <div><h3>Contact</h3><p>⌖　2727 Lyndon B Johnson Fwy #1050,<br/>　 Dallas, TX 75234</p><p>◔　+866-882-4292</p><p>✉　info@aonepos.com</p></div>
+      <div><h3>Contact</h3><p>2727 Lyndon B Johnson Fwy #1050,<br/>Dallas, TX 75234</p><p>+866-882-4292</p><p>info@aonepos.com</p></div>
     </div>
-  </div><div className="inner-copyright"><div className="inner-container"><span>© Copyright © 2026 Aonepos. All Rights Reserved.</span><div><a href="#">Privacy Policy</a><a href="#">Terms &amp; conditions</a></div></div></div></footer>;
+  </div><div className="inner-copyright"><div className="inner-container"><span>© Copyright © 2026 Aonepos. All Rights Reserved.</span><div><a href="/privacy-policy">Privacy Policy</a><a href="/terms">Terms &amp; conditions</a></div></div></div></footer>;
 }
 
 export function FAQ({ items = ["Can I get a customized solution?","Is AONEPOS suitable for my type of business?","How secure is AONEPOS?","What integrations are available?","How can I contact support?"] }: { items?: string[] }) {
