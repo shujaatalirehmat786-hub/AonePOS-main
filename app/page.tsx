@@ -31,7 +31,6 @@ const insightCards = [
     'Inventory',
     'What you are holding, what it cost you, what it is worth today.',
   ],
-  ['◇', '428', 'Orders Processed Today Across All Locations.'],
 ];
 const plans = [
   {
@@ -484,6 +483,14 @@ export default function Page() {
                 alt="AONEPOS business dashboard"
               />
             </figure>
+            <p className="hf-dashboard-copy">
+              Add a register, change a price, or move a product between
+              departments from the same screen. The change is live on the
+              floor before you close the tab.
+            </p>
+            <a className="hf-dashboard-cta" href="/contact#contact-form">
+              See the back office <span aria-hidden="true">→</span>
+            </a>
           </div>
         </section>
 
@@ -565,9 +572,6 @@ export default function Page() {
                     </li>
                   ))}
                 </ul>
-                <a className="hf-solution-link" href="/solutions">
-                  Liquor &amp; convenience POS <Arrow />
-                </a>
               </article>
             </div>
           </div>
