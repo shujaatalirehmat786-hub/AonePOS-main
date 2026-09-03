@@ -8,13 +8,12 @@ const products = [
   ['web', 'Web POS'],
 ];
 const partners = [
-  ['ZYWELL', "It's more than a printer"],
-  ['PARTNER', 'Care · Trust · Responsibility'],
-  ['PAX', 'Empowering digital payments'],
-  ['star', 'micronics'],
-  ['EPSON', 'EXCEED YOUR VISION'],
-  ['ZYWELL', "It's more than a printer"],
-  ['data', 'systems'],
+  ['Star Micronics', 'Receipt printing, including CloudPRNT'],
+  ['Epson', 'ePOS receipt printing'],
+  ['Zywell', 'Receipt printing'],
+  ['Bixolon', 'Shelf and product labels'],
+  ['PAX', 'EMV payment terminals'],
+  ['Datacap', 'Payment gateway certification'],
 ];
 const insightCards = [
   [
@@ -71,6 +70,32 @@ const plans = [
       'Employee Management',
     ],
   },
+];
+const whyBenefits = [
+  [
+    'Checkout that keeps up with a queue',
+    'Scan, tap, tender, done. Barcode, SKU or alternate-SKU lookup, split payments across cash and card, tips, and a customer-facing display that shows the total as you ring it. New cashiers pick it up in a shift, not a week.',
+  ],
+  [
+    'Pricing rules that match how you actually sell',
+    'Mix ’N Match deals across different products — any six for $6.99. Bulk breaks, scheduled sale prices, and separate cash and card prices per item. Set it once in the back office and every register follows.',
+  ],
+  [
+    'Purchasing, not just stock counts',
+    'Raise a purchase order, receive it against a vendor, and let cost and stock move together. Alternate SKUs for the same product from two distributors. CSV import and export. Shelf labels printed from the same catalogue.',
+  ],
+  [
+    'Your processor. Your hardware.',
+    'We are certified with Datacap for EMV and talk to PAX terminals directly. We do not take a share of your card volume, and we will not sell you a terminal you cannot use anywhere else.',
+  ],
+  [
+    'The kitchen and the counter on one system',
+    'Orders reach the kitchen display or the kitchen printer the moment they are sent. The order screen tells customers when their food is up. No second subscription, no separate tablet.',
+  ],
+  [
+    'Menu boards, built in',
+    'Drag text, images and product lists onto a canvas, then push it to the screens on the wall. Prices come from your catalogue, so changing a price on the register changes the board. Everyone else sells this separately.',
+  ],
 ];
 const faqs = [
   [
@@ -149,6 +174,7 @@ export default function Page() {
   const [productMenu, setProductMenu] = useState(false);
   const [billing, setBilling] = useState<'monthly' | 'yearly'>('monthly');
   const [openFaq, setOpenFaq] = useState(1);
+  const [openBenefit, setOpenBenefit] = useState(0);
 
   return (
     <div className="home-frame" id="home">
@@ -304,7 +330,16 @@ export default function Page() {
         </section>
 
         <section className="hf-partners">
-          <h2>Our Businesses Partners Worldwide</h2>
+          <h2>Works with the hardware already on your counter.</h2>
+          <p className="hf-partners-copy">
+            Star Micronics, Epson, Zywell and Bixolon printers. PAX
+            terminals. Datacap-certified EMV. Star CloudPRNT for printers
+            that live on the far side of the building. If it is already on
+            your counter, there is a good chance it already works.
+          </p>
+          <a className="hf-partners-cta" href="/contact#contact-form">
+            Ask us about your model <span aria-hidden="true">→</span>
+          </a>
           <div className="hf-partner-window">
             <div className="hf-partner-track">
               {[0, 1].map((copy) => (
@@ -343,30 +378,26 @@ export default function Page() {
                 everything already in it, and we do not touch your processing.
                 Here is what that actually gets you.
               </p>
-              <div className="hf-benefit">
-                <i>01</i>
-                <div>
-                  <h3>Checkout that keeps up with a queue</h3>
-                  <p>
-                    Scan, tap, tender, done. Barcode, SKU or alternate-SKU
-                    lookup, split payments across cash and card, tips, and a
-                    customer-facing display that shows the total as you ring it.
-                    New cashiers pick it up in a shift, not a week.
-                  </p>
+              {whyBenefits.map(([title, body], index) => (
+                <div className="hf-benefit" key={title}>
+                  <i>{String(index + 1).padStart(2, '0')}</i>
+                  <div>
+                    <button
+                      className="hf-benefit-head"
+                      onClick={() =>
+                        setOpenBenefit(openBenefit === index ? -1 : index)
+                      }
+                      aria-expanded={openBenefit === index}
+                    >
+                      <h3>{title}</h3>
+                      <span className="hf-benefit-toggle">
+                        {openBenefit === index ? '−' : '+'}
+                      </span>
+                    </button>
+                    {openBenefit === index && <p>{body}</p>}
+                  </div>
                 </div>
-              </div>
-              <div className="hf-benefit">
-                <i>02</i>
-                <div>
-                  <h3>Pricing rules that match how you actually sell</h3>
-                  <p>
-                    Mix ’N Match deals across different products — any six for
-                    $6.99. Bulk breaks, scheduled sale prices, and separate cash
-                    and card prices per item. Set it once in the back office and
-                    every register follows.
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
             <div className="hf-why-art" aria-label="AONEPOS checkout preview">
               <img
