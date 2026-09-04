@@ -356,3 +356,6 @@
 .home-frame .hf-dashboard-cta:hover { text-decoration: underline; }
 .home-frame .hf-dashboard-cta span { transition: transform .15s ease; }
 .home-frame .hf-dashboard-cta:hover span { transform: translateX(3px); }
+
+/* Nav dropdown caret: sized up and re-centered on the label's x-height. */
+.home-frame .hf-nav-caret { display: inline-block; margin-left: 5px; font-size: 1.35em; line-height: 1; vertical-align: middle; transform: translateY(-0.3em); }

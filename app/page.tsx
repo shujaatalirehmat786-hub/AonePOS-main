@@ -203,7 +203,10 @@ export default function Page() {
                 aria-haspopup="true"
                 aria-expanded={productMenu}
               >
-                Products⌄
+                Products
+                <span className="hf-nav-caret" aria-hidden="true">
+                  ⌄
+                </span>
               </button>
               <div className="hf-product-dropdown">
                 {products.map(([icon, label]) => (
@@ -222,7 +225,10 @@ export default function Page() {
               </div>
             </div>
             <a href="/solutions" onClick={() => setMobileMenu(false)}>
-              Solutions⌄
+              Solutions
+              <span className="hf-nav-caret" aria-hidden="true">
+                ⌄
+              </span>
             </a>
             <a href="/pricing" onClick={() => setMobileMenu(false)}>
               Pricing
