@@ -10,3 +10,60 @@
 @media(max-width:900px){.inner-page .inner-container{width:calc(100% - 32px)}.inner-header{height:82px}.inner-logo,.inner-logo img{width:172px;height:55px}.inner-menu{display:block;margin-left:auto;border:0;background:transparent;font-size:24px}.inner-nav nav{display:none;position:absolute;top:82px;left:0;right:0;z-index:40;padding:18px 24px;background:#fff;flex-direction:column;align-items:stretch;gap:0}.inner-nav nav.open{display:flex}.inner-nav nav>a,.inner-products>button{padding:12px 0;text-align:left}.inner-products>div{position:static;width:100%;box-shadow:none}.inner-demo{display:none}.frame-hero{height:auto}.frame-hero-grid{grid-template-columns:1fr;padding:55px 0}.frame-hero h1{font-size:42px;letter-spacing:-1.5px}.frame-hero-art{height:auto;margin-top:30px}.frame-stats{flex-wrap:wrap}.frame-stats>div{min-width:33%;padding:0 10px}.partner-strip>div{flex-wrap:wrap;gap:28px}.frame-section{padding:75px 0}.section-title h2,.frame-section h2{font-size:34px}.frame-grid.four,.frame-grid.three,.frame-grid.two,.about-values,.frame-split,.industry-split,.feature-zigzag article,.pricing-grid{grid-template-columns:1fr}.impact-grid,.journey-grid{grid-template-columns:1fr 1fr}.about-values>img,.industry-split>img{height:330px}.feature-zigzag article:nth-child(even)>div{order:0}.feature-zigzag figure{height:270px}.process-row{grid-template-columns:1fr}.process-row article:not(:last-child):after{display:none}.compare-table{overflow:auto}.compare-table>div{min-width:700px}.pricing-hero{height:auto;padding:70px 15px}.pricing-hero h1{font-size:42px}.inner-footer-grid{grid-template-columns:1fr}.inner-footer-grid>div{padding:25px 0}.inner-footer-grid>div+div{border-left:0;border-top:1px solid #ffffff55}.inner-copyright{height:auto;padding:14px 0}.inner-copyright>.inner-container{display:block}.inner-copyright>div>div{margin-top:6px}.inner-cta h2{font-size:34px}.inner-cta-box>div{flex-direction:column}}
 /* About-page hero art only: contained device photo instead of the full-bleed multiply-blended cover image used on other FrameHero pages. */
 .frame-hero-art-about{width:100%;max-width:620px;height:auto;object-fit:contain;object-position:center;mix-blend-mode:normal;margin:0 auto;display:block}
+
+/* Products-page hero art only: contained terminal photo (no multiply blend/crop) with two soft decorative blobs + a dot grid behind it, matching the Figma hero. Scoped to .frame-hero-art-wrap so no other FrameHero page is affected. */
+.frame-hero-art-wrap{position:relative;display:grid;place-items:center}
+.frame-hero-art-products{width:100%;max-width:640px;height:auto;object-fit:contain;object-position:center;mix-blend-mode:normal;margin:0 auto;display:block;position:relative;z-index:1}
+.frame-hero-art-wrap .hero-decor-blob,.frame-hero-art-wrap .hero-decor-dots{position:absolute;z-index:0;pointer-events:none}
+.frame-hero-art-wrap .hero-decor-blob-a{width:230px;top:-25px;right:6%}
+.frame-hero-art-wrap .hero-decor-blob-b{width:150px;bottom:30px;left:2%}
+.frame-hero-art-wrap .hero-decor-dots{width:110px;left:-30px;bottom:-40px;opacity:.8}
+
+/* Products page: numbered "Why AONEPOS" checklist (icon + heading + description per row). Only applies with the extra .detailed class so the plain Solutions-page checklist is untouched. */
+.check-list.detailed{margin-top:26px}
+.check-list.detailed li{display:flex;align-items:flex-start;gap:14px;margin:20px 0}
+.check-list.detailed li:before{content:none}
+.check-list.detailed li>b{flex:0 0 auto;display:grid;place-items:center;width:30px;height:30px;margin-top:2px;border-radius:9px;background:#e7fbfd;font-size:12px;font-weight:700;font-style:normal;background-image:linear-gradient(100deg,#11afe3,#22e7a0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.check-list.detailed li h4{margin:0 0 4px;font-size:16px;font-weight:600;color:#0c1013}
+.check-list.detailed li p{margin:0;color:#6c777c;font-size:14px;line-height:1.5}
+
+/* Products page: featured (Convenience) row in the industry accordion gets extra room for its description. */
+.industry-split>div article{align-items:flex-start;padding:16px 22px}
+.industry-split>div article.featured{height:auto;padding:22px}
+.industry-split article i{margin-top:2px}
+.industry-split article b{display:block;margin-top:2px}
+.industry-split article.featured p{margin:6px 0 0;color:#6c777c;font-size:14px;line-height:1.5}
+.industry-split>div article:not(.featured){align-items:center}
+.industry-split>div article:not(.featured) i{margin-top:0}
+.industry-split>div article:not(.featured) b{margin-top:0}
+
+/* Products page: small mock UI cards + decorative blobs inside the feature-zigzag figures. */
+.feature-zigzag figure{position:relative;overflow:hidden}
+.feature-zigzag .zigzag-blob{position:absolute;top:-15%;right:-10%;width:55%;pointer-events:none}
+.feature-zigzag .zigzag-dots{position:absolute;bottom:6%;left:6%;width:24%;opacity:.8;pointer-events:none}
+.zigzag-mock{position:relative;z-index:1;width:100%;max-width:320px;background:#fff;border-radius:16px;box-shadow:0 20px 40px #1c405524;padding:18px;font-size:13px;color:#20272a}
+.zigzag-mock .zm-head{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:15px;margin-bottom:14px}
+.zigzag-mock .zm-head small{font-weight:400;color:#8b979b;font-size:11px}
+.zigzag-mock .zm-pills{display:flex;gap:8px;margin-bottom:14px}
+.zigzag-mock .zm-pills span{flex:1;height:34px;border-radius:8px;background:#eef2f6}
+.zigzag-mock .zm-pills span.active{background:linear-gradient(100deg,#11afe3,#22e7a0)}
+.zigzag-mock .zm-rows div{display:flex;justify-content:space-between;padding:6px 0;color:#4f5d62;border-bottom:1px solid #f0f3f5}
+.zigzag-mock .zm-total{display:flex;justify-content:space-between;font-weight:700;margin:12px 0}
+.zigzag-mock .zm-pay{width:100%;border-radius:10px;padding:12px;text-align:center;background:#12c2a0;color:#fff;font-weight:700;font-size:13px}
+.zigzag-mock .zm-table .zm-thead{display:grid;grid-template-columns:1.4fr 1fr 1fr;font-size:11px;color:#8b979b;padding-bottom:8px}
+.zigzag-mock .zm-table>div:not(.zm-thead){display:grid;grid-template-columns:1.4fr 1fr 1fr;align-items:center;padding:9px 0;border-top:1px solid #f0f3f5}
+.zigzag-mock .zm-table em{font-style:normal;font-size:11px;font-weight:700;justify-self:start;padding:3px 8px;border-radius:20px}
+.zigzag-mock .zm-table em.ok{color:#0f9d63;background:#e7f8ee}
+.zigzag-mock .zm-table em.low{color:#b8860b;background:#fdf3d8}
+.zigzag-mock .zm-list div{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #f0f3f5}
+.zigzag-mock .zm-list i{width:8px;height:8px;border-radius:50%;background:#11afe3;font-style:normal}
+.zigzag-mock .zm-list b{flex:1;font-weight:600;color:#20272a}
+.zigzag-mock .zm-list span{color:#4f5d62;font-weight:600}
+
+@media(max-width:760px){
+  .frame-hero-art-products{max-width:420px}
+  .frame-hero-art-wrap .hero-decor-blob-a{width:150px}
+  .frame-hero-art-wrap .hero-decor-blob-b{width:100px}
+  .frame-hero-art-wrap .hero-decor-dots{width:80px}
+  .industry-split>div article{padding:14px 16px}
+}
