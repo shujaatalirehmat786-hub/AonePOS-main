@@ -358,4 +358,8 @@
 .home-frame .hf-dashboard-cta:hover span { transform: translateX(3px); }
 
 /* Nav dropdown caret: sized up and re-centered on the label's x-height. */
-.home-frame .hf-nav-caret { display: inline-block; margin-left: 5px; font-size: 1.35em; line-height: 1; vertical-align: middle; transform: translateY(-0.3em); }
+.home-frame .hf-nav-caret { display: inline-block; width: 0.42em; height: 0.42em; margin-left: 5px; border-right: 0.14em solid currentColor; border-bottom: 0.14em solid currentColor; vertical-align: middle; transform: translateY(-22%) rotate(45deg); }
+
+/* Shared global header/footer: self-contained wrapper so it renders correctly on every page, not just the homepage. */
+.home-frame.site-chrome { overflow: visible; }
+.hf-nav > nav > a.active { color: #1baee2; }

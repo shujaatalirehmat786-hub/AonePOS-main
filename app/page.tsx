@@ -1,12 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { SiteFooter, SiteHeader } from './components/inner-pages';
 
-const products = [
-  ['tablet', 'Tablet POS'],
-  ['mobile', 'Mobile POS'],
-  ['web', 'Web POS'],
-];
 const partners = [
   ['Star Micronics', 'Receipt printing, including CloudPRNT'],
   ['Epson', 'ePOS receipt printing'],
@@ -14,6 +10,7 @@ const partners = [
   ['Bixolon', 'Shelf and product labels'],
   ['PAX', 'EMV payment terminals'],
   ['Datacap', 'Payment gateway certification'],
+  ['HANASIS', 'Innovative, Leading Technology'],
 ];
 const insightCards = [
   [
@@ -169,82 +166,13 @@ function Receipt({ restaurant = false }: { restaurant?: boolean }) {
 }
 
 export default function Page() {
-  const [mobileMenu, setMobileMenu] = useState(false);
-  const [productMenu, setProductMenu] = useState(false);
   const [billing, setBilling] = useState<'monthly' | 'yearly'>('monthly');
   const [openFaq, setOpenFaq] = useState(1);
   const [openBenefit, setOpenBenefit] = useState(0);
 
   return (
     <div className="home-frame" id="home">
-      <header className="hf-header">
-        <div className="hf-container hf-nav">
-          <a className="hf-logo" href="/" aria-label="AOnePOS home">
-            <img src="/assets/aonepos-logo.png" alt="AOnePOS" />
-          </a>
-          <button
-            className="hf-menu-button"
-            onClick={() => setMobileMenu(!mobileMenu)}
-            aria-label="Toggle navigation"
-            aria-expanded={mobileMenu}
-          >
-            ☰
-          </button>
-          <nav
-            className={mobileMenu ? 'open' : ''}
-            aria-label="Main navigation"
-          >
-            <a href="#home" onClick={() => setMobileMenu(false)}>
-              Home
-            </a>
-            <div className={`hf-products${productMenu ? ' open' : ''}`}>
-              <button
-                onClick={() => setProductMenu(!productMenu)}
-                aria-haspopup="true"
-                aria-expanded={productMenu}
-              >
-                Products
-                <span className="hf-nav-caret" aria-hidden="true">
-                  ⌄
-                </span>
-              </button>
-              <div className="hf-product-dropdown">
-                {products.map(([icon, label]) => (
-                  <a
-                    href={`/products#${icon}`}
-                    key={icon}
-                    onClick={() => {
-                      setProductMenu(false);
-                      setMobileMenu(false);
-                    }}
-                  >
-                    <img src={`/assets/product-${icon}-icon.png`} alt="" />
-                    {label}
-                  </a>
-                ))}
-              </div>
-            </div>
-            <a href="/solutions" onClick={() => setMobileMenu(false)}>
-              Solutions
-              <span className="hf-nav-caret" aria-hidden="true">
-                ⌄
-              </span>
-            </a>
-            <a href="/pricing" onClick={() => setMobileMenu(false)}>
-              Pricing
-            </a>
-            <a href="/about" onClick={() => setMobileMenu(false)}>
-              About
-            </a>
-            <a href="/contact" onClick={() => setMobileMenu(false)}>
-              Contact
-            </a>
-          </nav>
-          <a className="hf-button hf-header-cta" href="/contact#contact-form">
-            Book a demo <Arrow dark />
-          </a>
-        </div>
-      </header>
+      <SiteHeader active="home" />
 
       <main>
         <section className="hf-hero">
@@ -697,79 +625,7 @@ export default function Page() {
         </section>
       </main>
 
-      <footer className="hf-footer">
-        <div className="hf-container">
-          <div className="hf-footer-brand">
-            <img src="/assets/aonepos-footer-logo.png" alt="AOnePOS" />
-          </div>
-          <div className="hf-footer-grid">
-            <div>
-              <h3>Social Links</h3>
-              <div className="hf-social">
-                <a href="#" aria-label="Instagram">
-                  ◎
-                </a>
-                <a href="#" aria-label="Facebook">
-                  f
-                </a>
-                <a href="#" aria-label="Twitter">
-                  ♥
-                </a>
-                <a href="#" aria-label="LinkedIn">
-                  in
-                </a>
-              </div>
-            </div>
-            <div>
-              <h3>About</h3>
-              <p>
-                AOne POS is a point-of-sale system for independent retailers and
-                restaurants. One system covers the register, inventory,
-                purchasing, the kitchen and the menu boards on the wall — on the
-                printers and card terminals you already own, with the payment
-                processor you already use. Built and supported from Dallas,
-                Texas.
-              </p>
-            </div>
-            <div>
-              <h3>Link</h3>
-              <nav>
-                <a href="#home">Home</a>
-                <a href="/products">Products</a>
-                <a href="/solutions">Solutions</a>
-                <a href="/pricing">Pricing</a>
-                <a href="/about">About</a>
-                <a href="/contact">Contact</a>
-              </nav>
-            </div>
-            <div className="hf-contact">
-              <h3>Contact</h3>
-              <p>
-                <img src="/assets/footer-location.png" alt="" />
-                2727 Lyndon B Johnson Fwy #1050, Dallas, TX 75234
-              </p>
-              <p>
-                <img src="/assets/footer-phone.png" alt="" />
-                +866-882-4292
-              </p>
-              <p>
-                <img src="/assets/footer-email.png" alt="" />
-                info@aonepos.com
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="hf-copyright">
-          <div className="hf-container">
-            <span>© Copyright © 2026 Aonepos. All Rights Reserved.</span>
-            <nav>
-              <a href="/privacy-policy">Privacy Policy</a>
-              <i />
-              <a href="/terms">Terms &amp; conditions</a>
-            </nav>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

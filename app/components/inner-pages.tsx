@@ -6,34 +6,47 @@ const products = [["tablet","Tablet POS"],["mobile","Mobile POS"],["web","Web PO
 
 export function Arrow() { return <span className="inner-arrow">→</span>; }
 
+function HfArrow({ dark = false }: { dark?: boolean }) {
+  return <span className={`hf-arrow${dark ? " dark" : ""}`} aria-hidden="true">→</span>;
+}
+
+// Global site header/footer — same on every page, matching the homepage's own design.
 export function SiteHeader({ active }: { active: string }) {
-  const [menuOpen,setMenuOpen] = useState(false);
-  const [productsOpen,setProductsOpen] = useState(false);
-  return <header className="inner-header"><div className="inner-container inner-nav">
-    <a className="inner-logo" href="/"><img src="/assets/aonepos-logo.png" alt="AOnePOS" /></a>
-    <button className="inner-menu" onClick={()=>setMenuOpen(!menuOpen)} aria-label="Toggle navigation" aria-expanded={menuOpen}>☰</button>
-    <nav className={menuOpen ? "open" : ""}>
-      <a className={active==="home" ? "active" : ""} href="/">Home</a>
-      <div className={`inner-products ${productsOpen ? "open" : ""}`}><button className={active==="products" ? "active" : ""} onClick={()=>setProductsOpen(!productsOpen)} aria-expanded={productsOpen}>Products⌄</button><div>{products.map(([icon,label])=><a href={`/products#${icon}`} key={icon}><img src={`/assets/product-${icon}-icon.png`} alt="" />{label}</a>)}</div></div>
-      <a className={active==="solutions" ? "active" : ""} href="/solutions">Solutions⌄</a>
-      <a className={active==="pricing" ? "active" : ""} href="/pricing">Pricing</a>
-      <a className={active==="about" ? "active" : ""} href="/about">About</a>
-      <a className={active==="contact" ? "active" : ""} href="/contact">Contact</a>
+  const [mobileMenu, setMobileMenu] = useState(false);
+  const [productMenu, setProductMenu] = useState(false);
+  return <div className="home-frame site-chrome"><header className="hf-header"><div className="hf-container hf-nav">
+    <a className="hf-logo" href="/" aria-label="AOnePOS home"><img src="/assets/aonepos-logo.png" alt="AOnePOS" /></a>
+    <button className="hf-menu-button" onClick={()=>setMobileMenu(!mobileMenu)} aria-label="Toggle navigation" aria-expanded={mobileMenu}>☰</button>
+    <nav className={mobileMenu ? "open" : ""} aria-label="Main navigation">
+      <a className={active==="home" ? "active" : ""} href="/" onClick={()=>setMobileMenu(false)}>Home</a>
+      <div className={`hf-products${productMenu ? " open" : ""}`}>
+        <button onClick={()=>setProductMenu(!productMenu)} aria-haspopup="true" aria-expanded={productMenu}>
+          Products<span className="hf-nav-caret" aria-hidden="true" />
+        </button>
+        <div className="hf-product-dropdown">
+          {products.map(([icon,label])=><a href={`/products#${icon}`} key={icon} onClick={()=>{setProductMenu(false);setMobileMenu(false);}}><img src={`/assets/product-${icon}-icon.png`} alt="" />{label}</a>)}
+        </div>
+      </div>
+      <a className={active==="solutions" ? "active" : ""} href="/solutions" onClick={()=>setMobileMenu(false)}>Solutions<span className="hf-nav-caret" aria-hidden="true" /></a>
+      <a className={active==="pricing" ? "active" : ""} href="/pricing" onClick={()=>setMobileMenu(false)}>Pricing</a>
+      <a className={active==="hardware" ? "active" : ""} href="/hardware" onClick={()=>setMobileMenu(false)}>Hardware</a>
+      <a className={active==="about" ? "active" : ""} href="/about" onClick={()=>setMobileMenu(false)}>About</a>
+      <a className={active==="contact" ? "active" : ""} href="/contact" onClick={()=>setMobileMenu(false)}>Contact</a>
     </nav>
-    <a className="inner-demo" href="/contact#contact-form">Book For Demo <Arrow/></a>
-  </div></header>;
+    <a className="hf-button hf-header-cta" href="/contact#contact-form">Book a demo <HfArrow dark/></a>
+  </div></header></div>;
 }
 
 export function SiteFooter() {
-  return <footer className="inner-footer"><div className="inner-container">
-    <div className="inner-footer-brand"><img src="/assets/aonepos-footer-logo.png" alt="AOnePOS" /></div>
-    <div className="inner-footer-grid">
-      <div><h3>Social Links</h3><div className="inner-social"><a href="#" aria-label="Instagram">◎</a><a href="#" aria-label="Facebook">f</a><a href="#" aria-label="Twitter">♥</a><a href="#" aria-label="LinkedIn">in</a></div></div>
-      <div><h3>About</h3><p>At AONEPOS, we are committed to simplifying and optimizing the way businesses operate. Our all-in-one POS solution empowers retailers and restaurants with fast sales processing, real-time inventory tracking, multi-location management and cloud-based access.</p></div>
+  return <div className="home-frame site-chrome"><footer className="hf-footer"><div className="hf-container">
+    <div className="hf-footer-brand"><img src="/assets/aonepos-footer-logo.png" alt="AOnePOS" /></div>
+    <div className="hf-footer-grid">
+      <div><h3>Social Links</h3><div className="hf-social"><a href="#" aria-label="Instagram">◎</a><a href="#" aria-label="Facebook">f</a><a href="#" aria-label="Twitter">♥</a><a href="#" aria-label="LinkedIn">in</a></div></div>
+      <div><h3>About</h3><p>AOne POS is a point-of-sale system for independent retailers and restaurants. One system covers the register, inventory, purchasing, the kitchen and the menu boards on the wall — on the printers and card terminals you already own, with the payment processor you already use. Built and supported from Dallas, Texas.</p></div>
       <div><h3>Link</h3><nav><a href="/">Home</a><a href="/products">Products</a><a href="/solutions">Solutions</a><a href="/pricing">Pricing</a><a href="/about">About</a><a href="/contact">Contact</a></nav></div>
-      <div><h3>Contact</h3><p>2727 Lyndon B Johnson Fwy #1050,<br/>Dallas, TX 75234</p><p>+866-882-4292</p><p>info@aonepos.com</p></div>
+      <div className="hf-contact"><h3>Contact</h3><p><img src="/assets/footer-location.png" alt="" />2727 Lyndon B Johnson Fwy #1050, Dallas, TX 75234</p><p><img src="/assets/footer-phone.png" alt="" />+866-882-4292</p><p><img src="/assets/footer-email.png" alt="" />info@aonepos.com</p></div>
     </div>
-  </div><div className="inner-copyright"><div className="inner-container"><span>© Copyright © 2026 Aonepos. All Rights Reserved.</span><div><a href="/privacy-policy">Privacy Policy</a><a href="/terms">Terms &amp; conditions</a></div></div></div></footer>;
+  </div><div className="hf-copyright"><div className="hf-container"><span>© Copyright © 2026 Aonepos. All Rights Reserved.</span><nav><a href="/privacy-policy">Privacy Policy</a><i/><a href="/terms">Terms &amp; conditions</a></nav></div></div></footer></div>;
 }
 
 export function FAQ({ items = ["Can I get a customized solution?","Is AONEPOS suitable for my type of business?","How secure is AONEPOS?","What integrations are available?","How can I contact support?"] }: { items?: string[] }) {
@@ -46,7 +59,7 @@ export function CTA({ label="Ready To Get Started?", title="Ready To Transform Y
 }
 
 export function FrameHero({active,eyebrow,title,highlight,text,image,stats}: {active:string;eyebrow:string;title:string;highlight:string;text:string;image?:string;stats?:string[][]}) {
-  return <><SiteHeader active={active}/><section className="frame-hero"><div className="inner-container frame-hero-grid"><div><span className="inner-pill">{eyebrow}<Arrow/></span><h1>{title} <span>{highlight}</span></h1><p>{text}</p><div className="inner-hero-actions"><a className="inner-primary" href="/contact#contact-form">Book For Demo <Arrow/></a><a className="inner-secondary" href="#details">See Pricing <Arrow/></a></div>{stats&&<div className="frame-stats">{stats.map(([n,l])=><div key={l}><b>{n}</b><span>{l}</span></div>)}</div>}</div>{image&&<img className="frame-hero-art" src={image} alt=""/>}</div></section></>;
+  return <><SiteHeader active={active}/><section className="frame-hero"><div className="inner-container frame-hero-grid"><div><span className="inner-pill">{eyebrow}<Arrow/></span><h1>{title} <span>{highlight}</span></h1><p>{text}</p><div className="inner-hero-actions"><a className="inner-primary" href="/contact#contact-form">Book For Demo <Arrow/></a><a className="inner-secondary" href="#details">See Pricing <Arrow/></a></div>{stats&&<div className="frame-stats">{stats.map(([n,l])=><div key={l}><b>{n}</b><span>{l}</span></div>)}</div>}</div>{image&&<img className={`frame-hero-art${active==="about"?" frame-hero-art-about":""}`} src={image} alt=""/>}</div></section></>;
 }
 
 export function SectionTitle({label,title,text}: {label:string;title:string;text?:string}) { return <div className="inner-center section-title"><span className="inner-label">{label}</span><h2>{title}</h2>{text&&<p className="inner-muted">{text}</p>}</div>; }
