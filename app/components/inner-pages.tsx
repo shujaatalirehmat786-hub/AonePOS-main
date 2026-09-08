@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 
-const products = [["tablet","Tablet POS"],["mobile","Mobile POS"],["web","Web POS"]];
+// Only the Web POS page exists today; Tablet/Mobile stay inert until they are built.
+const products: [string,string,string?][] = [["tablet","Tablet POS"],["mobile","Mobile POS"],["web","Web POS","/products"]];
 
 export function Arrow() { return <span className="inner-arrow">→</span>; }
 
@@ -20,11 +21,12 @@ export function SiteHeader({ active }: { active: string }) {
     <nav className={mobileMenu ? "open" : ""} aria-label="Main navigation">
       <a className={active==="home" ? "active" : ""} href="/" onClick={()=>setMobileMenu(false)}>Home</a>
       <div className={`hf-products${productMenu ? " open" : ""}`}>
-        <button onClick={()=>setProductMenu(!productMenu)} aria-haspopup="true" aria-expanded={productMenu}>
+        <a className="hf-products-link" href="/products" aria-haspopup="true" aria-expanded={productMenu}
+           onClick={()=>{setProductMenu(false);setMobileMenu(false);}}>
           Products<span className="hf-nav-caret" aria-hidden="true" />
-        </button>
+        </a>
         <div className="hf-product-dropdown">
-          {products.map(([icon,label])=><a href={`/products#${icon}`} key={icon} onClick={()=>{setProductMenu(false);setMobileMenu(false);}}><img src={`/assets/product-${icon}-icon.png`} alt="" />{label}</a>)}
+          {products.map(([icon,label,href])=><a href={href || undefined} key={icon} onClick={()=>{setProductMenu(false);setMobileMenu(false);}}><img src={`/assets/product-${icon}-icon.png`} alt="" />{label}</a>)}
         </div>
       </div>
       <a className={active==="solutions" ? "active" : ""} href="/solutions" onClick={()=>setMobileMenu(false)}>Solutions<span className="hf-nav-caret" aria-hidden="true" /></a>

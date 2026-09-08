@@ -16,7 +16,7 @@
 .rp-footer-grid nav{gap:12px;font-size:14px;line-height:1.4}
 .rp-footer-contact p{display:flex;gap:10px;margin-bottom:17px}
 .rp-footer-contact p span{width:18px;display:inline-block;text-align:center;font-size:17px;line-height:1}
-.rp-copyright{height:61px;padding:0;background:#fff;color:#15191b;font-family:Manrope,'DM Sans',Arial,sans-serif;font-size:12px}
+.rp-copyright{height:61px;padding:0;background:#fff;color:#15191b;font-family:'DM Sans',Arial,sans-serif;font-size:12px}
 .rp-copyright>.rp-container{height:100%;display:flex;align-items:center;justify-content:space-between}
 .rp-copyright>.rp-container>div{display:flex;gap:40px}
 .rp-copyright a{color:#15191b}
