@@ -12,6 +12,7 @@ const partners = [
   ['PAX', 'EMV payment terminals'],
   ['Datacap', 'Payment gateway certification'],
   ['HANASIS', 'Innovative, Leading Technology'],
+  ['SUNMI', 'Smarter Payments'],
 ];
 const insightCards = [
   [
