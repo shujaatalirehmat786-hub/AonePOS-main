@@ -31,7 +31,6 @@ export function SiteHeader({ active }: { active: string }) {
       </div>
       <a className={active==="solutions" ? "active" : ""} href="/solutions" onClick={()=>setMobileMenu(false)}>Solutions<span className="hf-nav-caret" aria-hidden="true" /></a>
       <a className={active==="pricing" ? "active" : ""} href="/pricing" onClick={()=>setMobileMenu(false)}>Pricing</a>
-      <a className={active==="hardware" ? "active" : ""} href="/hardware" onClick={()=>setMobileMenu(false)}>Hardware</a>
       <a className={active==="about" ? "active" : ""} href="/about" onClick={()=>setMobileMenu(false)}>About</a>
       <a className={active==="contact" ? "active" : ""} href="/contact" onClick={()=>setMobileMenu(false)}>Contact</a>
     </nav>
