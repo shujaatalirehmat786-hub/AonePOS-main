@@ -1,0 +1,263 @@
+/* ============================================================================
+   Home page scroll-reveal.
+
+   Everything is scoped to `.hfr-on #home`. That class is added by
+   ScrollReveal only after it confirms IntersectionObserver exists and that the
+   visitor has not asked for reduced motion — so with JS off, or on an old
+   browser, none of these rules apply and the page renders exactly as before.
+
+   No `will-change` here on purpose: promoting these to their own layer changes
+   text antialiasing, which would alter the page's resting appearance.
+   ========================================================================== */
+
+.hfr-on #home .hfr{
+  opacity:0;
+  transform:translateY(26px);
+  transition:opacity .72s cubic-bezier(.22,.61,.36,1),
+             transform .72s cubic-bezier(.22,.61,.36,1);
+  transition-delay:calc(var(--hfr-i,0) * 90ms);
+}
+.hfr-on #home .hfr.hfr-in{opacity:1;transform:none}
+
+/* Eyebrow labels lead, headings follow just behind them. */
+.hfr-on #home .hf-label.hfr{transform:translateY(14px)}
+.hfr-on #home .hf-section-heading.hfr{transform:translateY(30px);transition-duration:.8s}
+
+/* Body copy travels a shorter distance and lands a beat later, so the heading
+   reads first. */
+.hfr-on #home .hf-partners-copy.hfr,
+.hfr-on #home .hf-why-copy.hfr,
+.hfr-on #home .hf-dashboard-copy.hfr{
+  transform:translateY(18px);
+  transition-delay:calc(var(--hfr-i,0) * 90ms + 110ms);
+}
+
+/* Buttons rise and settle from very slightly small — the scale is what makes
+   it feel deliberate rather than a plain fade. */
+.hfr-on #home .hf-actions.hfr,
+.hfr-on #home .hf-toggle.hfr,
+.hfr-on #home .hf-partners-cta.hfr,
+.hfr-on #home .hf-dashboard-cta.hfr{
+  transform:translateY(16px) scale(.985);
+  transition-delay:calc(var(--hfr-i,0) * 90ms + 180ms);
+}
+
+/* Artwork and screenshots drift up with a touch of scale. */
+.hfr-on #home .hf-why-art.hfr,
+.hfr-on #home .hf-dashboard figure.hfr{
+  transform:translateY(24px) scale(.975);
+  transition-duration:.85s;
+}
+
+/* Card grids: the stagger index is set per sibling in ScrollReveal. */
+.hfr-on #home .hf-insight-grid>.hfr,
+.hfr-on #home .hf-solution-grid>.hfr,
+.hfr-on #home .hf-plan-grid>.hfr{
+  transform:translateY(32px) scale(.99);
+}
+/* FAQ rows come in tighter and quicker — a long list should not feel slow. */
+.hfr-on #home .hf-faq-list>.hfr{
+  transform:translateY(18px);
+  transition-duration:.55s;
+  transition-delay:calc(var(--hfr-i,0) * 60ms);
+}
+.hfr-on #home .hf-benefit.hfr{
+  transform:translateY(20px);
+  transition-delay:calc(var(--hfr-i,0) * 70ms);
+}
+
+/* The closing CTA is a single large block, so it gets a slower, fuller move. */
+.hfr-on #home .hf-cta-box.hfr{
+  transform:translateY(34px) scale(.99);
+  transition-duration:.9s;
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hfr-on #home .hfr{opacity:1;transform:none;transition:none}
+}
+
+/* ============================================================================
+   Hero entrance — CSS only, on purpose.
+
+   The scroll system above is JS-gated because it hides things. This is a plain
+   `animation` instead: the element's resting state stays visible, the keyframe
+   supplies the from-state, and `both` applies it at time zero — before first
+   paint, so there is no flash and nothing depends on JS running.
+   ========================================================================== */
+@keyframes hfRise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes hfRiseArt{from{opacity:0;transform:translateY(28px) scale(.972)}to{opacity:1;transform:none}}
+
+#home .hf-hero .hf-pill,
+#home .hf-hero h1,
+#home .hf-hero-copy>p,
+#home .hf-hero .hf-actions,
+#home .hf-hero-stats{
+  animation:hfRise .82s cubic-bezier(.22,.61,.36,1) both;
+}
+#home .hf-hero .hf-pill{animation-delay:.05s}
+#home .hf-hero h1{animation-delay:.16s}
+#home .hf-hero-copy>p{animation-delay:.28s}
+#home .hf-hero .hf-actions{animation-delay:.40s}
+#home .hf-hero-stats{animation-delay:.52s}
+#home .hf-hero-art{animation:hfRiseArt 1.05s cubic-bezier(.22,.61,.36,1) .22s both}
+
+/* --- Directional reveals for the split sections --------------------------- */
+/* Copy enters from the text side, artwork from the image side, so the two
+   halves resolve toward each other instead of both sliding up. */
+.hfr-on #home .hf-why-copy.hfr{transform:translateY(14px) translateX(-26px)}
+.hfr-on #home .hf-why-art.hfr{transform:translateY(14px) translateX(26px) scale(.985)}
+.hfr-on #home .hf-dashboard-copy.hfr{transform:translateY(14px) translateX(-24px)}
+.hfr-on #home .hf-dashboard figure.hfr{transform:translateY(16px) translateX(24px) scale(.985)}
+
+/* --- Card hover ----------------------------------------------------------- */
+#home .hf-insight-grid>article,
+#home .hf-solution-grid>article,
+#home .hf-plan-grid>article{
+  transition:transform .28s cubic-bezier(.22,.61,.36,1),
+             box-shadow .28s cubic-bezier(.22,.61,.36,1),
+             border-color .28s cubic-bezier(.22,.61,.36,1);
+}
+#home .hf-insight-grid>article:hover,
+#home .hf-solution-grid>article:hover,
+#home .hf-plan-grid>article:hover{
+  transform:translateY(-6px);
+  box-shadow:0 22px 46px rgba(24,86,112,.13);
+}
+/* Insight icons lift with their card. */
+#home .hf-insight-grid i{transition:transform .28s cubic-bezier(.22,.61,.36,1)}
+#home .hf-insight-grid>article:hover i{transform:translateY(-2px) scale(1.06)}
+
+/* --- Button sheen --------------------------------------------------------- */
+/* A soft light sweep across the gradient buttons. The pseudo-element sits at
+   -120% until hover, so it never shows at rest. */
+/* Clipping and the sweep element only exist during hover — applying
+   overflow:hidden at rest re-rasterises the button's rounded edge and shifts
+   its antialiasing, which would change the page's resting pixels. */
+#home .hf-button{position:relative}
+#home .hf-button:hover,#home .hf-button:focus-visible{overflow:hidden}
+#home .hf-button:hover>*,#home .hf-button:focus-visible>*{position:relative;z-index:1}
+#home .hf-button:hover:after,#home .hf-button:focus-visible:after{
+  content:'';position:absolute;top:0;bottom:0;left:-120%;width:65%;z-index:0;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.38),transparent);
+  transform:skewX(-18deg);
+  animation:hfSheen .7s cubic-bezier(.22,.61,.36,1) forwards;
+  pointer-events:none;
+}
+@keyframes hfSheen{to{left:130%}}
+
+@media(prefers-reduced-motion:reduce){
+  #home .hf-hero .hf-pill,#home .hf-hero h1,#home .hf-hero-copy>p,
+  #home .hf-hero .hf-actions,#home .hf-hero-stats,#home .hf-hero-art{animation:none}
+  #home .hf-insight-grid>article,#home .hf-solution-grid>article,
+  #home .hf-plan-grid>article,#home .hf-insight-grid i{transition:none}
+  #home .hf-insight-grid>article:hover,#home .hf-solution-grid>article:hover,
+  #home .hf-plan-grid>article:hover{transform:none}
+  #home .hf-button:after{display:none}
+}
+
+/* ============================================================================
+   Home page interaction states — audit pass.
+
+   The site-wide interactions.css targets `.inner-faq-list`, which is the inner
+   pages' accordion. The home page uses `.hf-faq-list`, so it had no hover or
+   focus at all; same for the pricing toggle, the benefit accordion and the
+   plan CTAs. Everything below is scoped to #home and is hover/focus/active
+   only — no resting styles, no layout shift (transform and shadow only).
+
+   Lift effects sit behind `@media (hover:hover)` so touch devices never get a
+   stuck hover state; they get :active feedback instead.
+   ========================================================================== */
+
+/* --- FAQ accordion -------------------------------------------------------- */
+#home .hf-faq-list button{
+  transition:box-shadow .26s cubic-bezier(.22,.61,.36,1),
+             transform .26s cubic-bezier(.22,.61,.36,1);
+}
+#home .hf-faq-list button>span{
+  transition:background .26s cubic-bezier(.22,.61,.36,1),
+             color .26s cubic-bezier(.22,.61,.36,1);
+}
+#home .hf-faq-list button>span i{
+  transition:transform .26s cubic-bezier(.22,.61,.36,1),
+             background .26s cubic-bezier(.22,.61,.36,1),
+             color .26s cubic-bezier(.22,.61,.36,1);
+}
+@media(hover:hover){
+  #home .hf-faq-list button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 14px 30px rgba(24,86,112,.13);
+  }
+  /* Closed rows warm up; an open row already carries the brand gradient. */
+  #home .hf-faq-list button:not(.active):hover>span{background:#eef8fc}
+  /* The glyph swaps between + and − in JSX, so only rotate the + — rotating a
+     minus would just stand it on end. */
+  #home .hf-faq-list button:not(.active):hover>span i{transform:rotate(90deg)}
+  #home .hf-faq-list button.active:hover>span i{transform:scale(1.08)}
+}
+#home .hf-faq-list button:active{transform:translateY(0);transition-duration:.09s}
+#home .hf-faq-list button:focus-visible{
+  outline:none;
+  box-shadow:var(--fx-ring),0 14px 30px rgba(24,86,112,.13);
+}
+
+/* --- Billing toggle (Monthly / Yearly) ------------------------------------ */
+#home .hf-toggle button{
+  transition:background .24s cubic-bezier(.22,.61,.36,1),
+             color .24s cubic-bezier(.22,.61,.36,1),
+             transform .24s cubic-bezier(.22,.61,.36,1);
+}
+@media(hover:hover){
+  #home .hf-toggle button:not(.active):hover{background:#e8f5fa;color:#0b7fa6}
+  #home .hf-toggle button.active:hover{filter:brightness(1.04)}
+}
+#home .hf-toggle button:active{transform:scale(.975);transition-duration:.09s}
+#home .hf-toggle button:focus-visible{outline:none;box-shadow:var(--fx-ring);border-radius:999px}
+
+/* --- "Why AOne POS" benefit accordion ------------------------------------- */
+#home .hf-benefit-head{transition:color .22s cubic-bezier(.22,.61,.36,1)}
+#home .hf-benefit-head h3{transition:color .22s cubic-bezier(.22,.61,.36,1)}
+#home .hf-benefit-toggle{
+  transition:background .24s cubic-bezier(.22,.61,.36,1),
+             color .24s cubic-bezier(.22,.61,.36,1),
+             transform .24s cubic-bezier(.22,.61,.36,1);
+}
+@media(hover:hover){
+  #home .hf-benefit-head:hover .hf-benefit-toggle{transform:scale(1.1)}
+}
+#home .hf-benefit-head:active .hf-benefit-toggle{transform:scale(.94);transition-duration:.09s}
+#home .hf-benefit-head:focus-visible{outline:none;box-shadow:var(--fx-ring);border-radius:8px}
+
+/* --- Plan CTAs ------------------------------------------------------------ */
+#home .hf-plan-top a{
+  transition:transform .24s cubic-bezier(.22,.61,.36,1),
+             box-shadow .24s cubic-bezier(.22,.61,.36,1),
+             filter .24s cubic-bezier(.22,.61,.36,1);
+}
+@media(hover:hover){
+  #home .hf-plan-top a:hover{
+    transform:translateY(-2px);
+    filter:brightness(1.04);
+    box-shadow:0 12px 24px rgba(14,150,200,.24);
+  }
+}
+#home .hf-plan-top a:active{transform:translateY(0);transition-duration:.09s}
+#home .hf-plan-top a:focus-visible{outline:none;box-shadow:var(--fx-ring)}
+
+/* --- Card lift: hover-capable pointers only, plus touch feedback ----------- */
+@media(hover:none){
+  #home .hf-insight-grid>article:hover,
+  #home .hf-solution-grid>article:hover,
+  #home .hf-plan-grid>article:hover{transform:none;box-shadow:none}
+  #home .hf-insight-grid>article:active,
+  #home .hf-solution-grid>article:active,
+  #home .hf-plan-grid>article:active{transform:scale(.995)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  #home .hf-faq-list button,#home .hf-faq-list button>span,
+  #home .hf-faq-list button>span i,#home .hf-toggle button,
+  #home .hf-benefit-toggle,#home .hf-plan-top a{transition:none}
+  #home .hf-faq-list button:hover,#home .hf-plan-top a:hover{transform:none}
+  #home .hf-faq-list button:not(.active):hover>span i,
+  #home .hf-benefit-head:hover .hf-benefit-toggle{transform:none}
+}

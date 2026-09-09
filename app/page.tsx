@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import ScrollReveal from './components/scroll-reveal';
 import { SiteFooter, SiteHeader } from './components/inner-pages';
 
 const partners = [
@@ -172,6 +173,7 @@ export default function Page() {
 
   return (
     <div className="home-frame" id="home">
+      <ScrollReveal />
       <SiteHeader active="home" />
 
       <main>

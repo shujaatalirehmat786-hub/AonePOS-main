@@ -1,0 +1,187 @@
+/* ============================================================================
+   Interaction polish — hover / focus / active states only.
+
+   Every rule here targets :hover, :focus-visible or :active, or adds a
+   `transition` (which is inert until one of those fires). Nothing changes how
+   the site looks at rest, so existing layouts and screenshots are unaffected.
+
+   Focus rings use :focus-visible so they appear for keyboard users without
+   ringing the element on a mouse click. Motion is disabled under
+   prefers-reduced-motion at the end of the file.
+   ========================================================================== */
+
+:root{
+  --fx-ease:cubic-bezier(.22,.61,.36,1);
+  --fx-ring:0 0 0 3px rgba(12,178,230,.30);
+  --fx-ring-light:0 0 0 3px rgba(255,255,255,.55);
+}
+
+/* --- Buttons -------------------------------------------------------------- */
+/* Inner pages: hero actions, CTA box, contact form. Home: header CTA + pills. */
+.inner-demo,.inner-primary,.inner-secondary,
+.hf-button,.hf-header-cta,.hf-primary,.hf-secondary{
+  transition:transform .25s var(--fx-ease),box-shadow .25s var(--fx-ease),
+             filter .25s var(--fx-ease),border-color .25s var(--fx-ease);
+}
+.inner-demo:hover,.inner-primary:hover,
+.hf-button:hover,.hf-header-cta:hover,.hf-primary:hover{
+  transform:translateY(-2px);
+  filter:saturate(1.06) brightness(1.03);
+  box-shadow:0 12px 26px rgba(14,150,200,.28);
+}
+.inner-secondary:hover,.hf-secondary:hover{
+  transform:translateY(-2px);
+  border-color:#8fd6ec;
+  box-shadow:0 12px 26px rgba(20,90,120,.14);
+}
+/* Pressed state: settle back down so the click feels physical. */
+.inner-demo:active,.inner-primary:active,.inner-secondary:active,
+.hf-button:active,.hf-header-cta:active,.hf-primary:active,.hf-secondary:active{
+  transform:translateY(0);
+  box-shadow:0 4px 12px rgba(14,150,200,.20);
+  transition-duration:.08s;
+}
+.inner-demo:focus-visible,.inner-primary:focus-visible,.inner-secondary:focus-visible,
+.hf-button:focus-visible,.hf-header-cta:focus-visible,.hf-primary:focus-visible,
+.hf-secondary:focus-visible{
+  outline:none;
+  box-shadow:var(--fx-ring),0 12px 26px rgba(14,150,200,.22);
+}
+/* The round arrow chip drifts toward the direction of travel. */
+.inner-arrow,.hf-arrow{transition:transform .25s var(--fx-ease)}
+.inner-demo:hover .inner-arrow,.inner-primary:hover .inner-arrow,
+.inner-secondary:hover .inner-arrow,.hf-button:hover .hf-arrow,
+.hf-header-cta:hover .hf-arrow,.hf-primary:hover .hf-arrow,
+.inner-demo:focus-visible .inner-arrow,.inner-primary:focus-visible .inner-arrow,
+.inner-secondary:focus-visible .inner-arrow,.hf-button:focus-visible .hf-arrow{
+  transform:translateX(3px);
+}
+
+/* --- Header nav links ----------------------------------------------------- */
+/* An underline that wipes in from the left. The pseudo-element is absolutely
+   positioned, so it cannot affect the nav's layout at rest. */
+.hf-nav>nav>a,.hf-products>a.hf-products-link,.inner-nav nav>a{
+  position:relative;
+  transition:color .2s var(--fx-ease);
+}
+.hf-nav>nav>a:after,.hf-products>a.hf-products-link:after,.inner-nav nav>a:after{
+  content:'';
+  position:absolute;left:0;right:0;bottom:2px;height:2px;
+  border-radius:2px;
+  background:linear-gradient(100deg,#11afe3,#22e7a0);
+  transform:scaleX(0);transform-origin:left center;
+  transition:transform .28s var(--fx-ease);
+  pointer-events:none;
+}
+.hf-nav>nav>a:hover:after,.hf-nav>nav>a:focus-visible:after,
+.hf-products>a.hf-products-link:hover:after,
+.hf-products>a.hf-products-link:focus-visible:after,
+.inner-nav nav>a:hover:after,.inner-nav nav>a:focus-visible:after{
+  transform:scaleX(1);
+}
+.hf-nav>nav>a:focus-visible,.hf-products>a.hf-products-link:focus-visible,
+.inner-nav nav>a:focus-visible{
+  outline:none;box-shadow:var(--fx-ring);border-radius:6px;
+}
+/* Caret tips down as the dropdown becomes available. */
+.hf-nav-caret{transition:transform .25s var(--fx-ease)}
+.hf-products:hover .hf-nav-caret,.hf-products:focus-within .hf-nav-caret,
+.hf-products.open .hf-nav-caret{transform:rotate(180deg)}
+
+/* --- Products dropdown items ---------------------------------------------- */
+.hf-product-dropdown a,.inner-products>div a{
+  transition:background .2s var(--fx-ease),transform .2s var(--fx-ease);
+}
+.hf-product-dropdown a:hover,.inner-products>div a:hover{transform:translateX(3px)}
+.hf-product-dropdown a:focus-visible,.inner-products>div a:focus-visible{
+  outline:none;box-shadow:var(--fx-ring);
+}
+.hf-product-dropdown img{transition:transform .25s var(--fx-ease)}
+.hf-product-dropdown a:hover img{transform:scale(1.08)}
+/* Items awaiting their own page shouldn't look clickable. */
+.hf-product-dropdown a:not([href]){cursor:default}
+.hf-product-dropdown a:not([href]):hover{background:transparent;transform:none}
+.hf-product-dropdown a:not([href]):hover img{transform:none}
+
+/* --- Footer links --------------------------------------------------------- */
+.hf-footer-grid nav a,.hf-copyright nav a,.inner-footer a{
+  position:relative;
+  transition:color .2s var(--fx-ease),opacity .2s var(--fx-ease);
+}
+.hf-footer-grid nav a:after,.hf-copyright nav a:after{
+  content:'';position:absolute;left:0;right:0;bottom:-3px;height:1px;
+  background:currentColor;opacity:.85;
+  transform:scaleX(0);transform-origin:left center;
+  transition:transform .28s var(--fx-ease);
+  pointer-events:none;
+}
+.hf-footer-grid nav a:hover:after,.hf-footer-grid nav a:focus-visible:after,
+.hf-copyright nav a:hover:after,.hf-copyright nav a:focus-visible:after{transform:scaleX(1)}
+.hf-footer-grid nav a:focus-visible{outline:none;box-shadow:var(--fx-ring-light);border-radius:4px}
+.hf-copyright nav a:focus-visible{outline:none;box-shadow:var(--fx-ring);border-radius:4px}
+/* Social chips fill in and lift. */
+.hf-social a{transition:background .22s var(--fx-ease),border-color .22s var(--fx-ease),
+             transform .22s var(--fx-ease),color .22s var(--fx-ease)}
+.hf-social a:hover{background:rgba(255,255,255,.18);border-color:#fff;transform:translateY(-3px)}
+.hf-social a:active{transform:translateY(-1px);transition-duration:.08s}
+.hf-social a:focus-visible{outline:none;box-shadow:var(--fx-ring-light);transform:translateY(-3px)}
+/* Contact rows in the footer brighten on hover where they are links. */
+.hf-contact a{transition:opacity .2s var(--fx-ease)}
+.hf-contact a:hover{opacity:.82}
+
+/* --- FAQ accordion -------------------------------------------------------- */
+.inner-faq-list button{
+  transition:background .25s var(--fx-ease),box-shadow .25s var(--fx-ease),
+             transform .25s var(--fx-ease),color .25s var(--fx-ease);
+}
+.inner-faq-list button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 26px rgba(20,90,120,.13);
+}
+/* Only tint the closed rows — an open row already carries the brand gradient. */
+.inner-faq-list button:not(.active):hover{background:#e6f6fb}
+.inner-faq-list button:active{transform:translateY(0);transition-duration:.08s}
+.inner-faq-list button:focus-visible{
+  outline:none;box-shadow:var(--fx-ring),0 12px 26px rgba(20,90,120,.13);
+}
+/* The +/− chip rotates and grows slightly as the row is engaged. */
+.inner-faq-list button span:after{
+  transition:transform .3s var(--fx-ease),background .25s var(--fx-ease),
+             color .25s var(--fx-ease);
+}
+/* Rotate only the closed "+" — the open row's "−" is symmetrical, so rotating
+   it at rest would change nothing visually while still repainting the glyph. */
+.inner-faq-list button:not(.active):hover span:after{transform:rotate(90deg) scale(1.08)}
+.inner-faq-list button.active:hover span:after{transform:scale(1.08)}
+
+/* --- Inline text links ---------------------------------------------------- */
+.text-link,.hf-partners-cta,.hf-dashboard-cta,.rp-hardware-cta{
+  transition:color .2s var(--fx-ease),opacity .2s var(--fx-ease);
+}
+.text-link:focus-visible,.hf-partners-cta:focus-visible,
+.hf-dashboard-cta:focus-visible,.rp-hardware-cta:focus-visible{
+  outline:none;box-shadow:var(--fx-ring);border-radius:4px;
+}
+/* Logo: a gentle press so the brand mark feels interactive. */
+.hf-logo,.inner-logo{transition:transform .25s var(--fx-ease)}
+.hf-logo:hover,.inner-logo:hover{transform:translateY(-1px)}
+.hf-logo:focus-visible,.inner-logo:focus-visible{
+  outline:none;box-shadow:var(--fx-ring);border-radius:8px;
+}
+
+/* --- Accessibility -------------------------------------------------------- */
+@media(prefers-reduced-motion:reduce){
+  .inner-demo,.inner-primary,.inner-secondary,.hf-button,.hf-header-cta,
+  .hf-primary,.hf-secondary,.inner-arrow,.hf-arrow,.hf-nav-caret,
+  .hf-product-dropdown a,.hf-product-dropdown img,.inner-products>div a,
+  .hf-social a,.inner-faq-list button,.inner-faq-list button span:after,
+  .hf-nav>nav>a:after,.hf-products>a.hf-products-link:after,
+  .inner-nav nav>a:after,.hf-footer-grid nav a:after,.hf-copyright nav a:after,
+  .hf-logo,.inner-logo{
+    transition-duration:.01ms !important;
+  }
+  .inner-demo:hover,.inner-primary:hover,.inner-secondary:hover,
+  .hf-button:hover,.hf-header-cta:hover,.hf-primary:hover,
+  .hf-social a:hover,.inner-faq-list button:hover,
+  .hf-logo:hover,.inner-logo:hover{transform:none}
+}
