@@ -48,6 +48,15 @@ const sections: LegalSection[] = [
     ],
   },
   {
+    heading: 'Text messages',
+    body: [
+      'The system sends texts for two things: a receipt after a sale, and a one-time code when someone signs in to order online. Both are transactional. We do not send marketing texts.',
+      'How often depends on your own trading — in practice it is one message per sale or sign-in. Message and data rates may apply.',
+      'We do not sell, rent, or share mobile phone numbers or text-message consent with any third party or affiliate for marketing purposes. A number goes to our messaging provider so it can deliver the message that was asked for, and nowhere else.',
+      'Reply STOP to any message to stop receiving them. Reply HELP for help, or email info@aonepos.com.',
+    ],
+  },
+  {
     heading: 'Who else sees it',
     body: [
       'Only the people and services that have to:',
@@ -112,7 +121,7 @@ export default function PrivacyPolicyPage() {
     <LegalPage
       title="Privacy Policy"
       intro="What we collect when you use AOne POS, what we do with it, who else ever sees it, and how you get it back."
-      updated="3 September 2026"
+      updated="9 September 2026"
       sections={sections}
     />
   );

@@ -74,6 +74,15 @@ const sections: LegalSection[] = [
     ],
   },
   {
+    heading: 'Text messages',
+    body: [
+      'AOne POS sends transactional texts: a receipt after a sale, and a one-time code for signing in to order online. There are no marketing texts.',
+      'Handing over a mobile number — yours, or one a customer gives you at the till — is how consent is given. Where the number is your customer’s, getting that consent is your job, and you need to be able to show you had it.',
+      'Message frequency varies with your activity. Message and data rates may apply.',
+      'Reply STOP to any message to cancel. Reply HELP for help. Carriers are not liable for messages that arrive late or not at all.',
+    ],
+  },
+  {
     heading: 'Availability',
     body: [
       'We work to keep the service running and we schedule maintenance outside trading hours wherever we can. We cannot promise it will never be unavailable. Interruptions caused by your internet connection, your own hardware, or a third-party service are outside our control.',
@@ -105,7 +114,7 @@ export default function TermsPage() {
     <LegalPage
       title="Terms & Conditions"
       intro="The agreement between your business and AOne POS — what you get, what you pay, and what each of us is responsible for."
-      updated="3 September 2026"
+      updated="9 September 2026"
       sections={sections}
     />
   );
