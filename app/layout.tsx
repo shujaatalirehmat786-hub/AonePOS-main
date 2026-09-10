@@ -15,6 +15,7 @@ import "./frame-pages.css";
 import "./home-frame.css";
 import "./interactions.css";
 import "./home-motion.css";
+import "./detail-pages.css";
 
 export const metadata: Metadata = { title: "AOne POS — Retail & Restaurant Point of Sale", description: "Checkout, inventory, purchase orders, kitchen display and digital menu boards in one POS system, with no hardware lock-in or payment-processing markup." };
 

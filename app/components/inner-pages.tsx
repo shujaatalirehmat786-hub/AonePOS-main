@@ -2,8 +2,18 @@
 
 import { useState } from "react";
 
-// Only the Web POS page exists today; Tablet/Mobile stay inert until they are built.
-const products: [string,string,string?][] = [["tablet","Tablet POS"],["mobile","Mobile POS"],["web","Web POS","/products"]];
+const products: [string,string,string][] = [
+  ["tablet","Tablet POS","/products/tablet-pos"],
+  ["mobile","Mobile POS","/products/mobile-pos"],
+  ["web","Web POS","/products/web-back-office"],
+];
+// Solutions mirrors the Products dropdown. Icon key is the asset basename, or a
+// `sico` mask where no ready-made gradient icon exists.
+const solutions: [string,string,string,boolean?][] = [
+  ["solution-retail","Retail POS","/solutions/retail-pos"],
+  ["solution-restaurant","Quick Service POS","/solutions/quick-service-pos"],
+  ["cashcarry","Wholesale POS","/solutions/wholesale-pos",true],
+];
 
 export function Arrow() { return <span className="inner-arrow">→</span>; }
 
@@ -15,6 +25,7 @@ function HfArrow({ dark = false }: { dark?: boolean }) {
 export function SiteHeader({ active }: { active: string }) {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [productMenu, setProductMenu] = useState(false);
+  const [solutionMenu, setSolutionMenu] = useState(false);
   return <div className="home-frame site-chrome"><header className="hf-header"><div className="hf-container hf-nav">
     <a className="hf-logo" href="/" aria-label="AOnePOS home"><img src="/assets/aonepos-logo.png" alt="AOnePOS" /></a>
     <button className="hf-menu-button" onClick={()=>setMobileMenu(!mobileMenu)} aria-label="Toggle navigation" aria-expanded={mobileMenu}>☰</button>
@@ -29,7 +40,17 @@ export function SiteHeader({ active }: { active: string }) {
           {products.map(([icon,label,href])=><a href={href || undefined} key={icon} onClick={()=>{setProductMenu(false);setMobileMenu(false);}}><img src={`/assets/product-${icon}-icon.png`} alt="" />{label}</a>)}
         </div>
       </div>
-      <a className={active==="solutions" ? "active" : ""} href="/solutions" onClick={()=>setMobileMenu(false)}>Solutions<span className="hf-nav-caret" aria-hidden="true" /></a>
+      <div className={`hf-products hf-submenu${solutionMenu ? " open" : ""}`}>
+        <a className={`hf-submenu-link${active==="solutions" ? " active" : ""}`} href="/solutions" aria-haspopup="true" aria-expanded={solutionMenu}
+           onClick={()=>{setSolutionMenu(false);setMobileMenu(false);}}>
+          Solutions<span className="hf-nav-caret" aria-hidden="true" />
+        </a>
+        <div className="hf-product-dropdown">
+          {solutions.map(([icon,label,href,mask])=><a href={href} key={icon} onClick={()=>{setSolutionMenu(false);setMobileMenu(false);}}>
+            {mask ? <span className={`sico sico-${icon}`} aria-hidden="true" /> : <img src={`/assets/${icon}.png`} alt="" />}{label}
+          </a>)}
+        </div>
+      </div>
       <a className={active==="pricing" ? "active" : ""} href="/pricing" onClick={()=>setMobileMenu(false)}>Pricing</a>
       <a className={active==="about" ? "active" : ""} href="/about" onClick={()=>setMobileMenu(false)}>About</a>
       <a className={active==="contact" ? "active" : ""} href="/contact" onClick={()=>setMobileMenu(false)}>Contact</a>
@@ -59,8 +80,8 @@ export function CTA({ label="Ready To Get Started?", title="Ready To Transform Y
   return <section className="inner-cta"><div className="inner-container"><div className="inner-cta-box"><span className="inner-label">{label}</span><h2>{title}</h2><p>{text}</p><div><a className="inner-primary" href="/contact#contact-form">{primary} <Arrow/></a><a className="inner-secondary" href="/contact#contact-form">{secondary} <Arrow/></a></div></div></div></section>;
 }
 
-export function FrameHero({active,eyebrow,title,highlight,text,image,stats}: {active:string;eyebrow:string;title:string;highlight:string;text:string;image?:string;stats?:string[][]}) {
-  return <><SiteHeader active={active}/><section className="frame-hero"><div className="inner-container frame-hero-grid"><div><span className="inner-pill">{eyebrow}<Arrow/></span><h1>{title} <span>{highlight}</span></h1><p>{text}</p><div className="inner-hero-actions"><a className="inner-primary" href="/contact#contact-form">Book For Demo <Arrow/></a><a className="inner-secondary" href="#details">See Pricing <Arrow/></a></div>{stats&&<div className="frame-stats">{stats.map(([n,l])=><div key={l}><b>{n}</b><span>{l}</span></div>)}</div>}</div>{image&&(active==="products"?<div className="frame-hero-art-wrap"><img className="frame-hero-art frame-hero-art-products" src={image} alt=""/><img className="hero-decor-blob hero-decor-blob-a" src="/assets/why-ellipse-large.png" alt="" aria-hidden="true"/><img className="hero-decor-blob hero-decor-blob-b" src="/assets/why-ellipse-small.png" alt="" aria-hidden="true"/><img className="hero-decor-dots" src="/assets/why-dot-grid.png" alt="" aria-hidden="true"/></div>:<img className={`frame-hero-art${active==="about"?" frame-hero-art-about":""}`} src={image} alt=""/>)}</div></section></>;
+export function FrameHero({active,eyebrow,title,highlight,text,image,stats,ctaPrimary="Book For Demo",ctaSecondary="See Pricing",secondaryHref="#details"}: {active:string;eyebrow:string;title:string;highlight:string;text:string;image?:string;stats?:string[][];ctaPrimary?:string;ctaSecondary?:string;secondaryHref?:string}) {
+  return <><SiteHeader active={active}/><section className="frame-hero"><div className="inner-container frame-hero-grid"><div><span className="inner-pill">{eyebrow}<Arrow/></span><h1>{title} <span>{highlight}</span></h1><p>{text}</p><div className="inner-hero-actions"><a className="inner-primary" href="/contact#contact-form">{ctaPrimary} <Arrow/></a><a className="inner-secondary" href={secondaryHref}>{ctaSecondary} <Arrow/></a></div>{stats&&<div className="frame-stats">{stats.map(([n,l])=><div key={l}><b>{n}</b><span>{l}</span></div>)}</div>}</div>{image&&(active==="products"?<div className="frame-hero-art-wrap"><img className="frame-hero-art frame-hero-art-products" src={image} alt=""/><img className="hero-decor-blob hero-decor-blob-a" src="/assets/why-ellipse-large.png" alt="" aria-hidden="true"/><img className="hero-decor-blob hero-decor-blob-b" src="/assets/why-ellipse-small.png" alt="" aria-hidden="true"/><img className="hero-decor-dots" src="/assets/why-dot-grid.png" alt="" aria-hidden="true"/></div>:<img className={`frame-hero-art${active==="about"?" frame-hero-art-about":""}`} src={image} alt=""/>)}</div></section></>;
 }
 
 export function SectionTitle({label,title,text}: {label:string;title:string;text?:string}) { return <div className="inner-center section-title"><span className="inner-label">{label}</span><h2>{title}</h2>{text&&<p className="inner-muted">{text}</p>}</div>; }
