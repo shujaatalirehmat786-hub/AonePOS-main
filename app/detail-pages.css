@@ -93,3 +93,38 @@
    two-line stat strip. These heroes carry longer copy, so the grid is moved
    below the taller strip rather than sitting behind its labels. */
 .products-page.detail-page .hero-decor-dots{top:calc(810 * var(--k))}
+
+/* --- Solution hero: art, dot grid and band height -------------------------
+   The live /solutions hero is tuned to a tall transparent device render and a
+   two-line stat strip. These pages carry wider artwork and a taller strip, so
+   the art was cropped at the top of the band and the dot grid landed on top of
+   the first stat label. The band gets more height, the art is scaled back and
+   dropped clear of the header, and the dot grid is anchored to the bottom of
+   the band so it always sits under the stats. */
+@media (min-width:1101px){
+  .solutions-page.detail-page .frame-hero{min-height:calc(950 * var(--k))}
+  .solutions-page.detail-page .frame-hero-art{width:100%;margin:calc(34 * var(--k)) 0 0 0}
+  .solutions-page.detail-page .frame-hero-grid{min-height:calc(950 * var(--k))}
+}
+
+/* The dot grid straddles the bottom of the blue band, half on the tint and half
+   on the white section below. A background image is clipped to its own box, so
+   it moves to a positioned element inside the hero grid: left:0 keeps it on the
+   container's left edge, and a negative bottom of half its height centres it on
+   the seam. Hidden below 1100px, where the band's dots were never drawn. */
+@media (min-width:1101px){
+  .solutions-page.detail-page .frame-hero-grid{background-image:none}
+  .solutions-page.detail-page .hero-dot-band{
+    --dot-w:calc(126 * var(--k));
+    position:absolute;left:0;
+    width:var(--dot-w);
+    height:calc(var(--dot-w) * 452 / 548);
+    bottom:calc(var(--dot-w) * -452 / 548 / 2);
+    background:url(/assets/why-dot-grid.png) no-repeat center/contain;
+    pointer-events:none;
+    z-index:1;
+  }
+}
+@media (max-width:1100px){
+  .solutions-page.detail-page .hero-dot-band{display:none}
+}

@@ -146,7 +146,7 @@ export function SolutionDetailPage({ data }: { data: SolutionPageData }) {
   return <div className="inner-page solutions-page detail-page">
     <FrameHero active="solutions" eyebrow={hero.eyebrow} title={hero.title} highlight={hero.highlight}
       text={hero.text} image={hero.image} stats={hero.stats}
-      ctaPrimary={hero.ctaPrimary} ctaSecondary={hero.ctaSecondary} secondaryHref="/pricing" />
+      ctaPrimary={hero.ctaPrimary} ctaSecondary={hero.ctaSecondary} secondaryHref="/pricing" dotBand />
 
     <section className="frame-section" id="details"><div className="inner-container">
       <SectionTitle label={capability.label} title={capability.title} text={capability.text} />
