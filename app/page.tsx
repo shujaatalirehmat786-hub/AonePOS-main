@@ -3,17 +3,8 @@
 import { useState } from 'react';
 import ScrollReveal from './components/scroll-reveal';
 import { SiteFooter, SiteHeader } from './components/inner-pages';
+import { PartnerMarquee } from './components/partner-marquee';
 
-const partners = [
-  ['Star Micronics', 'Receipt printing, including CloudPRNT'],
-  ['Epson', 'ePOS receipt printing'],
-  ['Zywell', 'Receipt printing'],
-  ['Bixolon', 'Shelf and product labels'],
-  ['PAX', 'EMV payment terminals'],
-  ['Datacap', 'Payment gateway certification'],
-  ['HANASIS', 'Innovative, Leading Technology'],
-  ['SUNMI', 'Smarter Payments'],
-];
 const insightCards = [
   [
     '▤',
@@ -276,27 +267,7 @@ export default function Page() {
           <a className="hf-partners-cta" href="/contact#contact-form">
             Ask us about your model <span aria-hidden="true">→</span>
           </a>
-          <div className="hf-partner-window">
-            <div className="hf-partner-track">
-              {[0, 1].map((copy) => (
-                <div
-                  className="hf-partner-group"
-                  key={copy}
-                  aria-hidden={copy === 1 ? true : undefined}
-                >
-                  {partners.map(([name, line], index) => (
-                    <span
-                      className={`hf-partner hf-partner-${index + 1}`}
-                      key={`${name}-${index}`}
-                    >
-                      <b>{name}</b>
-                      <small>{line}</small>
-                    </span>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
+          <PartnerMarquee />
         </section>
 
         <section className="hf-why">
