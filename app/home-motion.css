@@ -261,3 +261,6 @@
   #home .hf-faq-list button:not(.active):hover>span i,
   #home .hf-benefit-head:hover .hf-benefit-toggle{transform:none}
 }
+
+/* Reveal end-state must beat the directional from-states above: same specificity, so it has to come last. Without this the split sections stayed shifted (-26px / +24px) after revealing, on every viewport. */
+.hfr-on #home .hfr.hfr-in{opacity:1;transform:none}

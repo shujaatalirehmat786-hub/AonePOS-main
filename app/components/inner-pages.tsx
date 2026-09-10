@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const products: [string,string,string][] = [
   ["tablet","Tablet POS","/products/tablet-pos"],
@@ -21,41 +21,114 @@ function HfArrow({ dark = false }: { dark?: boolean }) {
   return <span className={`hf-arrow${dark ? " dark" : ""}`} aria-hidden="true">→</span>;
 }
 
+function SolutionIcon({ icon, mask }: { icon: string; mask?: boolean }) {
+  return mask ? <span className={`sico sico-${icon}`} aria-hidden="true" /> : <img src={`/assets/${icon}.png`} alt="" />;
+}
+
 // Global site header/footer — same on every page, matching the homepage's own design.
+// Desktop (>1100px) keeps the inline nav with hover dropdowns. Below that the
+// nav collapses into a slide-in drawer (.hf-drawer) with accordion sub-menus.
 export function SiteHeader({ active }: { active: string }) {
   const [mobileMenu, setMobileMenu] = useState(false);
-  const [productMenu, setProductMenu] = useState(false);
-  const [solutionMenu, setSolutionMenu] = useState(false);
+  const [openGroup, setOpenGroup] = useState<"products" | "solutions" | null>(
+    active === "products" ? "products" : active === "solutions" ? "solutions" : null,
+  );
+  const close = () => setMobileMenu(false);
+  const toggleGroup = (group: "products" | "solutions") => setOpenGroup(openGroup === group ? null : group);
+
+  // While the drawer is open: lock page scroll, close on Escape, and close if
+  // the viewport grows past the mobile breakpoint (rotation, window resize).
+  useEffect(() => {
+    if (!mobileMenu) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (event: KeyboardEvent) => { if (event.key === "Escape") setMobileMenu(false); };
+    const onResize = () => { if (window.innerWidth > 1100) setMobileMenu(false); };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("resize", onResize);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [mobileMenu]);
+
+  const link = (key: string) => (active === key ? "active" : "");
+
   return <div className="home-frame site-chrome"><header className="hf-header"><div className="hf-container hf-nav">
     <a className="hf-logo" href="/" aria-label="AOnePOS home"><img src="/assets/aonepos-logo.png" alt="AOnePOS" /></a>
-    <button className="hf-menu-button" onClick={()=>setMobileMenu(!mobileMenu)} aria-label="Toggle navigation" aria-expanded={mobileMenu}>☰</button>
-    <nav className={mobileMenu ? "open" : ""} aria-label="Main navigation">
-      <a className={active==="home" ? "active" : ""} href="/" onClick={()=>setMobileMenu(false)}>Home</a>
-      <div className={`hf-products${productMenu ? " open" : ""}`}>
-        <a className="hf-products-link" href="/products" aria-haspopup="true" aria-expanded={productMenu}
-           onClick={()=>{setProductMenu(false);setMobileMenu(false);}}>
+    <button className="hf-menu-button" type="button" onClick={()=>setMobileMenu(true)} aria-label="Open menu" aria-expanded={mobileMenu} aria-controls="site-drawer">
+      <span aria-hidden="true" /><span aria-hidden="true" /><span aria-hidden="true" />
+    </button>
+    <nav aria-label="Main navigation">
+      <a className={link("home")} href="/">Home</a>
+      <div className="hf-products">
+        <a className="hf-products-link" href="/products" aria-haspopup="true">
           Products<span className="hf-nav-caret" aria-hidden="true" />
         </a>
         <div className="hf-product-dropdown">
-          {products.map(([icon,label,href])=><a href={href || undefined} key={icon} onClick={()=>{setProductMenu(false);setMobileMenu(false);}}><img src={`/assets/product-${icon}-icon.png`} alt="" />{label}</a>)}
+          {products.map(([icon,label,href])=><a href={href || undefined} key={icon}><img src={`/assets/product-${icon}-icon.png`} alt="" />{label}</a>)}
         </div>
       </div>
-      <div className={`hf-products hf-submenu${solutionMenu ? " open" : ""}`}>
-        <a className={`hf-submenu-link${active==="solutions" ? " active" : ""}`} href="/solutions" aria-haspopup="true" aria-expanded={solutionMenu}
-           onClick={()=>{setSolutionMenu(false);setMobileMenu(false);}}>
+      <div className="hf-products hf-submenu">
+        <a className={`hf-submenu-link${active==="solutions" ? " active" : ""}`} href="/solutions" aria-haspopup="true">
           Solutions<span className="hf-nav-caret" aria-hidden="true" />
         </a>
         <div className="hf-product-dropdown">
-          {solutions.map(([icon,label,href,mask])=><a href={href} key={icon} onClick={()=>{setSolutionMenu(false);setMobileMenu(false);}}>
-            {mask ? <span className={`sico sico-${icon}`} aria-hidden="true" /> : <img src={`/assets/${icon}.png`} alt="" />}{label}
-          </a>)}
+          {solutions.map(([icon,label,href,mask])=><a href={href} key={icon}><SolutionIcon icon={icon} mask={mask} />{label}</a>)}
         </div>
       </div>
-      <a className={active==="pricing" ? "active" : ""} href="/pricing" onClick={()=>setMobileMenu(false)}>Pricing</a>
-      <a className={active==="about" ? "active" : ""} href="/about" onClick={()=>setMobileMenu(false)}>About</a>
-      <a className={active==="contact" ? "active" : ""} href="/contact" onClick={()=>setMobileMenu(false)}>Contact</a>
+      <a className={link("pricing")} href="/pricing">Pricing</a>
+      <a className={link("about")} href="/about">About</a>
+      <a className={link("contact")} href="/contact">Contact</a>
     </nav>
     <a className="hf-button hf-header-cta" href="/contact#contact-form">Book a demo <HfArrow dark/></a>
+
+    <div className={`hf-drawer-root${mobileMenu ? " open" : ""}`} id="site-drawer" aria-hidden={!mobileMenu}>
+      <div className="hf-drawer-backdrop" onClick={close} aria-hidden="true" />
+      <aside className="hf-drawer" role="dialog" aria-modal="true" aria-label="Site navigation">
+        <div className="hf-drawer-head">
+          <a className="hf-drawer-logo" href="/" aria-label="AOnePOS home" onClick={close}><img src="/assets/aonepos-logo.png" alt="AOnePOS" /></a>
+          <button className="hf-drawer-close" type="button" onClick={close} aria-label="Close menu"><span aria-hidden="true" /><span aria-hidden="true" /></button>
+        </div>
+        <nav className="hf-drawer-nav" aria-label="Mobile navigation">
+          <a className={`hf-drawer-link ${link("home")}`} href="/" onClick={close}>Home</a>
+
+          <div className={`hf-drawer-group${openGroup === "products" ? " open" : ""}`}>
+            <button type="button" className={`hf-drawer-link hf-drawer-toggle ${link("products")}`} onClick={()=>toggleGroup("products")} aria-expanded={openGroup === "products"} aria-controls="drawer-products">
+              Products<span className="hf-drawer-caret" aria-hidden="true" />
+            </button>
+            <div className="hf-drawer-sub" id="drawer-products">
+              <div>
+                <a href="/products" onClick={close}><span className="hf-drawer-all" aria-hidden="true">→</span>All products</a>
+                {products.map(([icon,label,href])=><a href={href} key={icon} onClick={close}><img src={`/assets/product-${icon}-icon.png`} alt="" />{label}</a>)}
+              </div>
+            </div>
+          </div>
+
+          <div className={`hf-drawer-group${openGroup === "solutions" ? " open" : ""}`}>
+            <button type="button" className={`hf-drawer-link hf-drawer-toggle ${link("solutions")}`} onClick={()=>toggleGroup("solutions")} aria-expanded={openGroup === "solutions"} aria-controls="drawer-solutions">
+              Solutions<span className="hf-drawer-caret" aria-hidden="true" />
+            </button>
+            <div className="hf-drawer-sub" id="drawer-solutions">
+              <div>
+                <a href="/solutions" onClick={close}><span className="hf-drawer-all" aria-hidden="true">→</span>All solutions</a>
+                {solutions.map(([icon,label,href,mask])=><a href={href} key={icon} onClick={close}><SolutionIcon icon={icon} mask={mask} />{label}</a>)}
+              </div>
+            </div>
+          </div>
+
+          <a className={`hf-drawer-link ${link("pricing")}`} href="/pricing" onClick={close}>Pricing</a>
+          <a className={`hf-drawer-link ${link("about")}`} href="/about" onClick={close}>About</a>
+          <a className={`hf-drawer-link ${link("contact")}`} href="/contact" onClick={close}>Contact</a>
+        </nav>
+        <div className="hf-drawer-foot">
+          <a className="hf-button hf-drawer-cta" href="/contact#contact-form" onClick={close}>Book a demo <HfArrow dark/></a>
+          <a className="hf-drawer-contact" href="tel:+8668824292">+866-882-4292</a>
+          <a className="hf-drawer-contact" href="mailto:info@aonepos.com">info@aonepos.com</a>
+        </div>
+      </aside>
+    </div>
   </div></header></div>;
 }
 

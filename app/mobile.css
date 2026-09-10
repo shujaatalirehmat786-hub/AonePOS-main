@@ -1,0 +1,271 @@
+/* ============================================================================
+   Mobile & tablet pass — loaded last so it wins ties.
+
+   1. Slide-in navigation drawer (all pages, <=1100px).
+   2. Products / Solutions pages (and their detail pages): the desktop design
+      scales every value by --k (container / 1561). Below 1100px the container
+      stops tracking the design, so --k collapsed to ~0.2 and labels, headings
+      and line-heights shrank to a few pixels. Pinned here.
+   3. Assorted layout fixes for phones (hero stats, feature zigzag, compare
+      table, section rhythm, header height).
+
+   Desktop (>1100px) rules are untouched apart from the drawer being hidden.
+   ========================================================================== */
+
+/* --- 1. Navigation drawer ------------------------------------------------ */
+.hf-drawer-root{position:fixed;inset:0;z-index:1000;visibility:hidden;transition:visibility 0s .34s}
+.hf-drawer-root.open{visibility:visible;transition-delay:0s}
+.hf-drawer-backdrop{position:absolute;inset:0;background:rgba(9,20,26,.45);opacity:0;transition:opacity .3s ease}
+.hf-drawer-root.open .hf-drawer-backdrop{opacity:1}
+.hf-drawer{
+  position:absolute;top:0;right:0;bottom:0;width:min(86vw,360px);
+  display:flex;flex-direction:column;
+  background:#fff;box-shadow:-18px 0 48px rgba(9,40,56,.18);
+  transform:translateX(104%);
+  transition:transform .34s cubic-bezier(.22,.61,.36,1);
+  overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+  padding-bottom:max(20px,env(safe-area-inset-bottom));
+}
+.hf-drawer-root.open .hf-drawer{transform:none}
+.hf-drawer-head{display:flex;align-items:center;justify-content:space-between;height:76px;padding:0 12px 0 20px;border-bottom:1px solid #e6f2f6;flex:none}
+.hf-drawer-logo{display:block}
+.hf-drawer-logo img{display:block;width:150px;height:48px;object-fit:contain;filter:brightness(1.105)}
+.hf-drawer-close{position:relative;width:44px;height:44px;border:0;border-radius:50%;background:#eefaff;cursor:pointer;flex:none}
+.hf-drawer-close span{position:absolute;left:50%;top:50%;width:18px;height:2px;margin:-1px 0 0 -9px;border-radius:2px;background:#0f1a20}
+.hf-drawer-close span:first-child{transform:rotate(45deg)}
+.hf-drawer-close span:last-child{transform:rotate(-45deg)}
+.hf-drawer-close:hover{background:#dff4fa}
+
+.hf-drawer-nav{display:flex;flex-direction:column;padding:10px 12px 6px;flex:1 0 auto}
+.hf-drawer-nav .hf-drawer-link{
+  display:flex;align-items:center;justify-content:space-between;width:100%;
+  min-height:52px;padding:0 12px;margin:0;border:0;border-radius:10px;background:none;
+  color:#0f1a20;font:inherit;font-size:17px;font-weight:500;text-align:left;text-decoration:none;cursor:pointer;
+  transition:background .18s ease,color .18s ease;
+}
+.hf-drawer-nav .hf-drawer-link:hover,.hf-drawer-nav .hf-drawer-link:focus-visible{background:#f2fbfe;color:#1baee2;outline:none}
+.hf-drawer-nav .hf-drawer-link.active{color:#1baee2}
+.hf-drawer-caret{
+  display:inline-block;width:.5em;height:.5em;margin-right:6px;
+  border-right:2px solid currentColor;border-bottom:2px solid currentColor;
+  transform:translateY(-25%) rotate(45deg);transition:transform .25s ease;
+}
+.hf-drawer-group.open .hf-drawer-toggle{color:#1baee2}
+.hf-drawer-group.open .hf-drawer-caret{transform:translateY(15%) rotate(-135deg)}
+/* Accordion body: 0fr -> 1fr animates height without knowing it. */
+.hf-drawer-sub{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s cubic-bezier(.22,.61,.36,1)}
+.hf-drawer-group.open .hf-drawer-sub{grid-template-rows:1fr}
+.hf-drawer-sub>div{overflow:hidden;min-height:0;display:flex;flex-direction:column;gap:2px;padding:0 4px}
+.hf-drawer-group.open .hf-drawer-sub>div{padding:2px 4px 10px}
+.hf-drawer-sub a{
+  display:flex;align-items:center;gap:14px;min-height:46px;padding:0 12px 0 14px;border-radius:9px;
+  color:#22323a;font-size:15px;text-decoration:none;transition:background .18s ease,color .18s ease;
+}
+.hf-drawer-sub a:hover,.hf-drawer-sub a:focus-visible{background:#eefaff;color:#1baee2;outline:none}
+.hf-drawer-sub a img{width:26px;height:26px;object-fit:contain;flex:none}
+.hf-drawer-sub a .sico{display:block;flex:none;width:26px;height:26px;background-image:linear-gradient(95.6deg,#0cb2e6 16.851%,#2cf49c 95.633%);-webkit-mask:url(/assets/sol-icon-cashcarry.png) no-repeat center/22px;mask:url(/assets/sol-icon-cashcarry.png) no-repeat center/22px}
+.hf-drawer-all{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#e8f8fd;color:#1baee2;font-size:15px;line-height:1;flex:none}
+.hf-drawer-group+.hf-drawer-link,.hf-drawer-link+.hf-drawer-group{margin-top:2px}
+
+.hf-drawer-foot{display:flex;flex-direction:column;gap:12px;padding:16px 20px 8px;border-top:1px solid #e6f2f6;flex:none}
+.home-frame .hf-drawer-cta{width:100%;height:52px;padding:0 6px 0 22px;font-size:15px;color:#fff;background:linear-gradient(100deg,var(--hf-blue),var(--hf-green));justify-content:space-between}
+.home-frame .hf-drawer-cta .hf-arrow{width:38px;height:38px;font-size:24px;flex:none}
+.hf-drawer-contact{color:#4b5a61;font-size:14px;text-decoration:none}
+.hf-drawer-contact:hover{color:#1baee2}
+.hf-drawer-contact+.hf-drawer-contact{margin-top:-6px}
+
+/* Hamburger: three bars in a 44px hit area. */
+.hf-menu-button{position:relative;width:44px;height:44px;padding:0;border:0;border-radius:10px;background:none;font-size:0;color:#0f1a20}
+.hf-menu-button span{position:absolute;left:11px;width:22px;height:2px;border-radius:2px;background:currentColor;transition:transform .2s ease,opacity .2s ease}
+.hf-menu-button span:nth-child(1){top:14px}
+.hf-menu-button span:nth-child(2){top:21px}
+.hf-menu-button span:nth-child(3){top:28px}
+.hf-menu-button:hover{background:#eefaff}
+.hf-menu-button:focus-visible{outline:none;box-shadow:var(--fx-ring)}
+
+@media (min-width:1101px){
+  .hf-drawer-root{display:none}
+}
+@media (max-width:1100px){
+  /* The old dropdown-style mobile nav is replaced by the drawer. */
+  .hf-nav>nav,.hf-nav>nav.open{display:none}
+  .hf-menu-button{display:block;margin-left:auto}
+}
+@media (prefers-reduced-motion:reduce){
+  .hf-drawer,.hf-drawer-backdrop,.hf-drawer-sub,.hf-drawer-caret{transition:none}
+}
+
+/* --- 2. Products / Solutions: pin the design scale below 1100px ---------- */
+@media (max-width:1100px){
+  .products-page,.solutions-page{--k:.64}
+  /* Tinted header on these pages kept its 127px desktop height on phones. */
+  .products-page .home-frame .hf-header,.solutions-page .home-frame .hf-header{height:84px}
+  /* Section labels: height was 42*--k = 8px. */
+  .products-page .section-title .inner-label,.products-page .frame-split .inner-label,
+  .solutions-page .section-title .inner-label,.solutions-page .frame-split .inner-label{height:auto;min-height:32px;padding:5px 18px;font-size:13px;line-height:1.3}
+  .products-page .inner-muted,.solutions-page .inner-muted{font-size:16px;line-height:26px}
+  /* Hero art needs no negative pull-up once it stacks under the copy. */
+  .products-page .frame-hero-art-products{margin-top:28px}
+  /* Feature zigzag: even rows kept their two desktop columns (the :nth-child
+     rule outranks the stacked one), which crushed the copy into a 130px strip. */
+  .products-page .feature-zigzag article,
+  .products-page .feature-zigzag article:nth-child(even){grid-template-columns:minmax(0,1fr);gap:28px;margin-bottom:56px}
+  .products-page .feature-zigzag article>div,
+  .products-page .feature-zigzag article:nth-child(even)>div{max-width:none;margin-left:0;order:0}
+  .products-page .feature-zigzag article>figure{order:1}
+  .products-page .feature-zigzag{margin-top:56px}
+  .products-page .feature-zigzag h3{font-size:30px;line-height:1.2}
+  .products-page .feature-zigzag small{font-size:15px}
+  .products-page .feature-zigzag p{font-size:16px;line-height:26px}
+  /* Industry list photo was pinned to a 583px minimum. */
+  .products-page .industry-split>img{min-height:0;height:auto;max-height:380px;object-fit:cover}
+  .products-page.detail-page .industry-split>img{min-height:0}
+  .products-page .industry-split article b{line-height:1.3}
+  .products-page .industry-split article.featured p{line-height:1.55}
+  /* Per-section bottom padding was set by id (higher specificity than the
+     responsive rule), so phones inherited 150-250px gaps between sections. */
+  .products-page #details,.products-page #industries,.products-page #why,.products-page #features,
+  .solutions-page #details,.solutions-page #warehouse,.solutions-page #how,.solutions-page #compare,
+  .solutions-page #markets,.solutions-page #visibility{padding-bottom:96px}
+  .solutions-page .frame-split h2{line-height:1.2}
+  .solutions-page .check-list li{font-size:16px;line-height:1.55}
+  .solutions-page .process-row b{font-size:18px}
+  .solutions-page .process-row small{font-size:14px}
+  .solutions-page .process-row i{width:64px;height:64px}
+}
+
+@media (max-width:700px){
+  .products-page .home-frame .hf-header,.solutions-page .home-frame .hf-header{height:76px}
+  .products-page .inner-container,.solutions-page .inner-container{width:calc(100% - 32px)}
+  .products-page .frame-hero-grid,.solutions-page .frame-hero-grid{padding:36px 0 52px}
+  .products-page .frame-hero-grid>div:first-child,.solutions-page .frame-hero-grid>div:first-child{margin-top:0}
+  .products-page .frame-hero h1,.solutions-page .frame-hero h1{font-size:clamp(32px,9vw,40px);line-height:1.1;max-width:none}
+  .products-page .frame-hero p,.solutions-page .frame-hero p{font-size:15px;line-height:24px}
+  .products-page .frame-hero-art-products{max-width:420px}
+  .solutions-page .frame-hero-art{max-width:460px}
+  .products-page .frame-section,.solutions-page .frame-section,
+  .products-page .frame-band,.solutions-page .frame-band{padding:64px 0}
+  .products-page #details,.products-page #industries,.products-page #why,.products-page #features,
+  .solutions-page #details,.solutions-page #warehouse,.solutions-page #how,.solutions-page #compare,
+  .solutions-page #markets,.solutions-page #visibility{padding-bottom:64px}
+  .products-page .section-title h2,.products-page .frame-section h2,.products-page .frame-split h2,
+  .solutions-page .section-title h2,.solutions-page .frame-section h2,.solutions-page .frame-split h2{font-size:30px;line-height:1.2}
+  .products-page .inner-muted,.solutions-page .inner-muted{font-size:15px;line-height:24px}
+  .products-page .frame-grid,.solutions-page .frame-grid{margin-top:36px;gap:16px}
+  .products-page .frame-card{padding:24px 22px}
+  .products-page .frame-card h3{margin-top:20px;font-size:19px}
+  .products-page .frame-card p,.solutions-page .frame-card p{margin-top:12px;font-size:15px;line-height:24px}
+  .products-page .frame-card>i,.solutions-page .frame-card>i{width:56px;height:56px}
+  .solutions-page .frame-card h3{margin-top:24px;font-size:21px}
+  .solutions-page .frame-card.center-card h3{font-size:20px}
+  .products-page .frame-split,.solutions-page .frame-split{gap:32px}
+  .products-page .check-list.detailed li h4{font-size:17px}
+  .products-page .check-list.detailed li p{font-size:15px;line-height:24px}
+  .products-page .industry-split{margin-top:36px;gap:28px}
+  .products-page .industry-split>div article{margin-bottom:14px}
+  .products-page .industry-split article b{font-size:18px}
+  .products-page .industry-split article.featured b{font-size:18px}
+  .products-page .industry-split article.featured p{font-size:15px;line-height:1.5}
+  .products-page .industry-split>img{max-height:300px}
+  .products-page .feature-zigzag{margin-top:40px}
+  .products-page .feature-zigzag article{margin-bottom:48px}
+  .products-page .feature-zigzag h3{font-size:26px}
+  .products-page .feature-zigzag p{font-size:15px;line-height:24px}
+  .products-page .zz-panel{padding:28px 14px}
+  .solutions-page .process-row{margin-top:36px;gap:14px}
+  .solutions-page .process-row article{padding:26px 20px 24px}
+  .solutions-page .frame-grid.three,.solutions-page .frame-grid.two{gap:16px}
+  .solutions-page .check-list li{font-size:15px}
+  /* Compare table: three real columns again, instead of three stacked lists
+     that separated a feature from its values. */
+  .solutions-page .compare-table{
+    display:grid;grid-template-columns:1.35fr 1fr 1fr;grid-auto-flow:column;grid-template-rows:repeat(5,auto);
+    max-width:none;margin-top:36px;gap:0;background:#fff;border:1px solid #dcebf1;border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.05);
+  }
+  .solutions-page .compare-table .ct-col{display:contents}
+  .solutions-page .compare-table .ct-col>div{
+    display:flex;align-items:center;height:auto;min-height:60px;padding:10px 10px;
+    border:0;border-top:1px solid #eaf2f5;font-size:12.5px;line-height:1.35;color:#0b1114;
+  }
+  .solutions-page .compare-table .ct-col>div:first-child,.solutions-page .compare-table .ct-head{border-top:0}
+  .solutions-page .compare-table .ct-basic>div,.solutions-page .compare-table .ct-aone>div{border-left:1px solid #eaf2f5}
+  .solutions-page .compare-table .ct-head{background:#daf1fa;font-size:13px;font-weight:600}
+  .solutions-page .compare-table .ct-basic>div{justify-content:center;letter-spacing:1px;color:rgba(0,0,0,.55)}
+  .solutions-page .compare-table .ct-basic .ct-head{justify-content:flex-start;letter-spacing:0;color:#0b1114}
+  .solutions-page .compare-table .ct-aone .ct-head{background:linear-gradient(103deg,#0cb2e6,#2cf49c);color:#fff;min-height:60px;height:auto;font-size:13px;font-weight:600}
+  .solutions-page .compare-table .ct-aone>div{height:auto;min-height:60px}
+  .solutions-page .compare-table .ct-aone em{margin-right:6px}
+  .solutions-page .ct-ribbon{display:none}
+}
+
+/* Tablets: keep the two hero buttons side by side instead of two full-width bars. */
+@media (min-width:701px) and (max-width:1100px){
+  .products-page .inner-hero-actions,.solutions-page .inner-hero-actions{flex-direction:row;flex-wrap:wrap;align-items:center;gap:14px}
+  .products-page .inner-hero-actions a,.solutions-page .inner-hero-actions a{width:auto;min-width:220px}
+}
+
+/* --- 3. Phone layout fixes shared by the FrameHero pages ------------------ */
+@media (max-width:700px){
+  /* Hero stat strip: a 3-up grid instead of a wrapping flex row whose third
+     item dropped to a second line with a stray left border. */
+  .frame-stats,.products-page .frame-stats,.solutions-page .frame-stats,
+  .products-page.detail-page .frame-stats,.solutions-page.detail-page .frame-stats{
+    display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:28px;row-gap:0;
+  }
+  .frame-stats>div,.products-page .frame-stats>div,.solutions-page .frame-stats>div,
+  .products-page.detail-page .frame-stats>div,.solutions-page.detail-page .frame-stats>div{
+    min-width:0;flex:none;padding:0 10px;white-space:normal;border-right:1px solid #bfd2d8;
+  }
+  .frame-stats>div:first-child,.products-page .frame-stats>div:first-child,.solutions-page .frame-stats>div:first-child{padding-left:0}
+  .frame-stats>div:last-child,.products-page .frame-stats>div:last-child,.solutions-page .frame-stats>div:last-child{padding-right:0;border-right:0}
+  .products-page .frame-stats>div+div,.solutions-page .frame-stats>div+div{border-left:0}
+  .frame-stats b,.products-page .frame-stats b,.solutions-page .frame-stats b{font-size:17px;line-height:1.2;letter-spacing:-.3px}
+  .frame-stats span,.products-page .frame-stats span,.solutions-page .frame-stats span{margin-top:6px;font-size:11.5px;line-height:1.35}
+
+  /* Generic inner pages (about, pricing): tighter rhythm on phones. */
+  .inner-page .frame-section{padding:64px 0}
+  .inner-page .inner-faq{padding:64px 0}
+  .inner-page .inner-cta{padding:40px 0 72px}
+  .inner-page .section-title h2,.inner-page .frame-section h2{font-size:30px;line-height:1.2;letter-spacing:-1px}
+  .inner-page .frame-hero-grid{padding:40px 0 48px}
+  .inner-page .frame-hero h1{font-size:clamp(32px,9vw,40px);letter-spacing:-1.2px;line-height:1.1}
+  .inner-page .frame-hero p{font-size:15px}
+  .inner-page .inner-hero-actions{flex-direction:column;align-items:stretch;gap:12px;margin-top:26px}
+  .inner-page .inner-hero-actions a{width:100%;height:54px;justify-content:space-between;padding:0 8px 0 24px}
+  .frame-hero-art-about{margin-top:28px}
+  .inner-page .frame-grid{margin-top:36px;gap:16px}
+  .inner-page .impact-grid,.inner-page .journey-grid{margin-top:36px;gap:16px}
+  .inner-page .impact-grid b{font-size:34px}
+  .inner-page .about-values{margin-top:36px;gap:28px}
+  .inner-page .about-values>img{height:260px}
+  .inner-page .inner-cta-box{padding:52px 20px 60px;border-radius:22px}
+  .inner-page .inner-cta h2{font-size:30px}
+  .inner-page .inner-cta p{font-size:15px}
+  .inner-page .inner-cta-box>div a{width:100%;justify-content:space-between}
+  .inner-page .inner-faq-list{margin-top:36px}
+  .inner-page .inner-faq-list button{padding:18px 18px;font-size:15px}
+  .inner-page .inner-faq-list button span{gap:12px;align-items:flex-start}
+  .inner-page .inner-faq-list button span:after{flex:none}
+  .inner-page .pricing-hero{padding:56px 0 64px}
+  .inner-page .pricing-hero h1{font-size:clamp(32px,9vw,40px);letter-spacing:-1.2px}
+  .inner-page .pricing-hero p{font-size:15px}
+  .inner-page .pricing-hero .inner-primary{width:100%;justify-content:space-between}
+  .inner-page .pricing-grid{margin-top:36px;gap:20px}
+  .inner-page .price-top{padding:32px 26px;min-height:0}
+  .inner-page .price-top strong{font-size:48px;margin:14px 0 20px}
+  .inner-page .pricing-grid>article>h3{margin:24px 26px 10px}
+  .inner-page .pricing-grid ul{padding:0 26px 26px}
+  .inner-page .pricing-grid li{font-size:14px}
+
+  /* Home page odds and ends. */
+  .home-frame .hf-hero .hf-primary,.home-frame .hf-hero .hf-secondary,
+  .home-frame .hf-cta .hf-primary,.home-frame .hf-cta .hf-secondary{width:100%;max-width:360px}
+  .home-frame .hf-why-art{width:88%}
+  .home-frame .hf-partners-copy{padding:0 16px;font-size:14px}
+}
+
+/* Footer contact rows: keep long lines from touching the icon column. */
+@media (max-width:700px){
+  .hf-footer .hf-contact p{align-items:flex-start}
+  .hf-copyright nav{flex-wrap:wrap;justify-content:center}
+}
