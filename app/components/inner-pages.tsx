@@ -144,9 +144,19 @@ export function SiteFooter() {
   </div><div className="hf-copyright"><div className="hf-container"><span>© Copyright © 2026 Aonepos. All Rights Reserved.</span><nav><a href="/privacy-policy">Privacy Policy</a><i/><a href="/terms">Terms &amp; conditions</a></nav></div></div></footer></div>;
 }
 
-export function FAQ({ items = ["Can I get a customized solution?","Is AONEPOS suitable for my type of business?","How secure is AONEPOS?","What integrations are available?","How can I contact support?"] }: { items?: string[] }) {
-  const [active,setActive] = useState(1);
-  return <div className="inner-faq-list">{items.map((item,i)=><button key={item} className={active===i ? "active" : ""} onClick={()=>setActive(active===i ? -1 : i)} aria-expanded={active===i}><span>{item}</span>{active===i&&<small>Yes. AONEPOS is designed for retail stores, restaurants, cafés, salons and multi-location businesses. The system is flexible and customizable to match your workflow.</small>}</button>)}</div>;
+// Questions and answers that hold true for the product as it ships. Reused by
+// every page that renders <FAQ/> without its own list.
+export const defaultFaqs: [string, string][] = [
+  ["What kind of businesses use AOne POS?", "Independent retailers — convenience, liquor, grocery and smoke shops — plus cafés and quick-service restaurants. It fits best where you carry a lot of products, run promotions, and want purchasing and the till on one system. It is not built for full-service restaurants that need table and seat management."],
+  ["Do I have to use your payment processing?", "No. We are certified with Datacap for EMV and integrate directly with PAX terminals. Bring the processor you already use; we take no share of your card volume."],
+  ["What hardware does it work with?", "Receipt printers from Star Micronics, Epson and Zywell, including Star CloudPRNT. Bixolon label printers. PAX payment terminals. Standard barcode scanners and cash drawers. Android tablets and handhelds, or any modern browser. Send us your model and we will confirm before you buy anything."],
+  ["Can I import the products I already have?", "Yes. Send a CSV of your catalogue and we will import it, including SKUs, alternate SKUs, barcodes, costs, prices and departments. Most shops are trading on the new system the same week."],
+  ["What does support cost?", "Nothing extra. Support is included in every plan, from a team in Dallas that has set up the same hardware you are running."],
+];
+
+export function FAQ({ items = defaultFaqs, open = 0 }: { items?: [string, string][]; open?: number }) {
+  const [active,setActive] = useState(open);
+  return <div className="inner-faq-list">{items.map(([question, answer],i)=><button key={question} className={active===i ? "active" : ""} onClick={()=>setActive(active===i ? -1 : i)} aria-expanded={active===i}><span>{question}</span>{active===i&&<small>{answer}</small>}</button>)}</div>;
 }
 
 export function CTA({ label="Ready To Get Started?", title="Ready To Transform Your Business?", text="From fast payments to real-time reporting and multi-store management, AONEPOS gives you everything you need to run your business with confidence.", primary="Get Started", secondary="Contact Us" }: { label?: string; title?: string; text?: string; primary?: string; secondary?: string }) {
