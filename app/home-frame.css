@@ -98,7 +98,7 @@
 .home-frame .hf-hero .hf-actions { margin-top: 30px; gap: 16px; }
 .home-frame .hf-hero .hf-hero-stats { margin-top: 40px; }
 .home-frame .hf-hero-art { width: 56%; left: 47%; top: 68px; }
-.home-frame .hf-hero-inner::after { content: ""; position: absolute; left: 0; bottom: 0; width: 100px; height: 95px; background: url('/assets/hero-dot-frame.png') center / contain no-repeat; pointer-events: none; }
+.home-frame .hf-hero-inner::after { content: ""; position: absolute; left: 0; bottom: -47.5px; width: 100px; height: 95px; background: url('/assets/hero-dot-frame.png') center / contain no-repeat; pointer-events: none; }
 
 .home-frame .hf-partners { height: auto; min-height: 0; padding: 45px 0 64px; }
 .home-frame .hf-partners h2 { margin-bottom: 18px; font-size: 24px; }
@@ -273,7 +273,7 @@
   .home-frame .hf-hero-inner { padding: 48px 0 80px; }
   .home-frame .hf-hero-art { position: relative; top: auto; left: auto; width: min(680px, 90%); margin: 40px auto 0; }
   .home-frame .hf-hero h1 { font-size: 40px; }
-  .home-frame .hf-hero-inner::after { width: 65px; height: 60px; }
+  .home-frame .hf-hero-inner::after { width: 65px; height: 60px; bottom: -30px; }
   .home-frame .hf-why-grid { grid-template-columns: 1fr; gap: 40px; }
   .home-frame .hf-why-copy { max-width: 700px; margin-inline: auto; }
   .home-frame .hf-why-art { width: min(560px, 85%); margin: 0 auto; }
@@ -300,7 +300,7 @@
   .home-frame .hf-hero .hf-actions { gap: 10px; margin-top: 24px; }
   .home-frame .hf-hero .hf-hero-stats { margin-top: 28px; }
   .home-frame .hf-hero-art { width: 100%; max-width: 480px; margin-top: 32px; }
-  .home-frame .hf-hero-inner::after { width: 45px; height: 42px; }
+  .home-frame .hf-hero-inner::after { width: 45px; height: 42px; bottom: -21px; }
   .home-frame .hf-partners { padding: 32px 0 42px; }
   .home-frame .hf-partners h2 { font-size: 21px; margin-bottom: 18px; }
   .home-frame .hf-partner b { font-size: 22px; }
@@ -363,3 +363,8 @@
 /* Shared global header/footer: self-contained wrapper so it renders correctly on every page, not just the homepage. */
 .home-frame.site-chrome { overflow: visible; }
 .hf-nav > nav > a.active { color: #1baee2; }
+
+/* Homepage nav + hero tint, per the Figma frame. Scoped to #home so the
+   shared header keeps its white background on every other page. */
+#home .hf-header,
+#home .hf-hero { background: #85D8F333; }
