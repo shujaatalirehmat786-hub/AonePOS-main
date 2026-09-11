@@ -150,3 +150,48 @@
   .web-back-office-page .frame-hero-art-wrap{align-self:center}
   .web-back-office-page .frame-hero-art-products{margin-top:0}
 }
+
+/* --- Tablet POS hero decoration -------------------------------------------
+   The previous hero artwork was a JPG with the two floating cards, the pale
+   discs and the dot grid baked into it. The replacement is a transparent
+   cut-out of the terminal alone, so those pieces are rebuilt here from the
+   site's own assets and placed where the flattened artwork had them.
+
+   The art wrap is position:static on product pages, so these resolve against
+   .frame-hero-grid — the same containing block .hero-decor-dots already uses.
+   Horizontal offsets are a percentage of that grid; vertical ones use --k, the
+   scale the artwork itself is sized by, so the whole group tracks the art. */
+@media (min-width:1101px){
+  .tablet-pos-page .hero-decor-blob{display:block;position:absolute;z-index:0;pointer-events:none}
+  .tablet-pos-page .hero-decor-blob-a{left:90.60%;top:calc(69 * var(--k));width:calc(238 * var(--k));height:auto;right:auto}
+  .tablet-pos-page .hero-decor-blob-b{left:52.05%;top:calc(373 * var(--k));width:calc(196 * var(--k));height:auto;bottom:auto}
+  .tablet-pos-page .hero-art-dots{position:absolute;z-index:0;left:56.11%;top:calc(433 * var(--k));width:calc(119 * var(--k));height:auto;pointer-events:none}
+  .tablet-pos-page .hero-art-card{position:absolute;z-index:4;height:auto;pointer-events:none}
+  .tablet-pos-page .hero-art-payment{left:50.55%;top:calc(210 * var(--k));width:calc(205 * var(--k))}
+  .tablet-pos-page .hero-art-chart{left:85.23%;top:calc(404 * var(--k));width:calc(206 * var(--k))}
+}
+/* Stacked layout keeps the artwork on its own; the floats would collide. */
+@media (max-width:1100px){
+  .tablet-pos-page .hero-art-dots,
+  .tablet-pos-page .hero-art-card{display:none}
+}
+
+/* --- Mobile POS hero decoration -------------------------------------------
+   Same story as the tablet hero: the artwork it replaces was a flattened JPG
+   with the two pale discs and the dot grid painted in. The replacement is a
+   device group shot on its own, so the pattern is rebuilt from the site's
+   assets at the positions the old artwork used. No floating cards here — the
+   previous artwork had none. */
+@media (min-width:1101px){
+  /* The artwork is shorter than the copy column, so it is dropped by 189 units
+     to sit on the same baseline as the stat strip opposite it. The pattern
+     carries the identical offset, so the group moves as one. */
+  .mobile-pos-page .frame-hero-art-products{margin-top:calc(138 * var(--k))}
+  .mobile-pos-page .hero-decor-blob{display:block;position:absolute;z-index:0;pointer-events:none}
+  .mobile-pos-page .hero-decor-blob-a{left:89.84%;top:calc(261 * var(--k));width:calc(167 * var(--k));height:auto;right:auto}
+  .mobile-pos-page .hero-decor-blob-b{left:51.83%;top:calc(554 * var(--k));width:calc(250 * var(--k));height:auto;bottom:auto}
+  .mobile-pos-page .hero-art-dots{position:absolute;z-index:0;left:56.45%;top:calc(618 * var(--k));width:calc(115 * var(--k));height:auto;pointer-events:none}
+}
+@media (max-width:1100px){
+  .mobile-pos-page .hero-art-dots{display:none}
+}

@@ -7,12 +7,14 @@ export const metadata: Metadata = {
 };
 
 const data: ProductPageData = {
+  root: "mobile-pos-page",
+  artDots: true,
   hero: {
     eyebrow: "Mobile POS",
     title: "Mobile POS for the aisle, the van",
     highlight: "and the market stall.",
     text: "Scan, charge and print from an Android handheld. Tap to pay runs on the device itself — no separate card reader — or pair a PAX terminal if you already have one.",
-    image: "/assets/solutions-hero-hardware.jpg",
+    image: "/assets/mobile-pos-hero.png",
     stats: [
       ["Tap to pay", "On the device, no extra reader"],
       ["Bluetooth", "Receipts without cables"],

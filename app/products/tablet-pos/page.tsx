@@ -7,12 +7,15 @@ export const metadata: Metadata = {
 };
 
 const data: ProductPageData = {
+  root: "tablet-pos-page",
+  artFloats: true,
+  artDots: true,
   hero: {
     eyebrow: "Tablet POS",
     title: "A tablet POS that runs",
     highlight: "the whole trading day.",
     text: "Ring it up, take the card, print the ticket, send it to the kitchen, and close the drawer with the variance already worked out. One Android tablet, no trip to the back office.",
-    image: "/assets/products-hero-terminal.jpg",
+    image: "/assets/tablet-pos-terminal.png",
     stats: [
       ["4 printer brands", "Star, Epson, Zywell, Bixolon"],
       ["EMV certified", "Datacap gateway, PAX terminals"],
@@ -36,7 +39,7 @@ const data: ProductPageData = {
     label: "Why AOne POS",
     title: "Built for a busy counter, not a demo.",
     text: "Speed at the till is the whole job. Everything else is arranged around not slowing it down.",
-    image: "/assets/hero-pos-interface.jpeg",
+    image: "/assets/tablet-pos-why.png",
     imageAlt: "AOne POS tablet checkout screen",
     points: [
       ["Four taps to tender", "Scan, quantity, tender, done. Split across cash and card without leaving the ticket."],

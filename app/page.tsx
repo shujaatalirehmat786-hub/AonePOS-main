@@ -387,8 +387,8 @@ export default function Page() {
             </div>
             <figure>
               <img
-                src="/assets/figma-invoice-dashboard.png"
-                alt="AONEPOS business dashboard"
+                src="/assets/back-office-store-details.png"
+                alt="AOne POS back office store settings"
               />
             </figure>
             <p className="hf-dashboard-copy">

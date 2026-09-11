@@ -78,6 +78,10 @@ export type ProductPageData = {
   closing: { label: string; title: string; text: string; primary: string; secondary: string };
   // optional page-specific class, for heroes whose artwork needs its own tuning
   root?: string;
+  // renders the floating cards around the hero artwork
+  artFloats?: boolean;
+  // renders the dot-grid pattern beside the hero artwork
+  artDots?: boolean;
 };
 
 export function ProductDetailPage({ data }: { data: ProductPageData }) {
@@ -85,7 +89,7 @@ export function ProductDetailPage({ data }: { data: ProductPageData }) {
   return <div className={`inner-page products-page detail-page${data.root ? " " + data.root : ""}`}>
     <FrameHero active="products" eyebrow={hero.eyebrow} title={hero.title} highlight={hero.highlight}
       text={hero.text} image={hero.image} stats={hero.stats}
-      ctaPrimary={hero.ctaPrimary} ctaSecondary={hero.ctaSecondary} secondaryHref="/pricing" />
+      ctaPrimary={hero.ctaPrimary} ctaSecondary={hero.ctaSecondary} secondaryHref="/pricing" artFloats={data.artFloats} artDots={data.artDots} />
 
     <section className="frame-section" id="details"><div className="inner-container">
       <SectionTitle label={overview.label} title={overview.title} text={overview.text} />
