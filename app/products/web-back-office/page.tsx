@@ -7,12 +7,13 @@ export const metadata: Metadata = {
 };
 
 const data: ProductPageData = {
+  root: "web-back-office-page",
   hero: {
     eyebrow: "Web back office",
     title: "Run the shop from a browser,",
     highlight: "not the back room.",
     text: "Pricing, purchasing, staff, taxes and reporting in one cloud back office. Change a price here and every till on the floor follows.",
-    image: "/assets/products-web-dashboard.png",
+    image: "/assets/web-back-office-dashboard.jpg",
     stats: [
       ["Any browser", "Chrome, Safari, Edge — nothing to install"],
       ["Live", "Changes reach the floor as you save"],

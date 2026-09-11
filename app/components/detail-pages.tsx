@@ -76,11 +76,13 @@ export type ProductPageData = {
   features: { label: string; title: string; text: string; blocks: { label: string; title: string; short: string; long: string; mock: Mock }[] };
   core: { label: string; title: string; cards: [string, string, string][] };
   closing: { label: string; title: string; text: string; primary: string; secondary: string };
+  // optional page-specific class, for heroes whose artwork needs its own tuning
+  root?: string;
 };
 
 export function ProductDetailPage({ data }: { data: ProductPageData }) {
   const { hero, overview, why, tabs, features, core, closing } = data;
-  return <div className="inner-page products-page detail-page">
+  return <div className={`inner-page products-page detail-page${data.root ? " " + data.root : ""}`}>
     <FrameHero active="products" eyebrow={hero.eyebrow} title={hero.title} highlight={hero.highlight}
       text={hero.text} image={hero.image} stats={hero.stats}
       ctaPrimary={hero.ctaPrimary} ctaSecondary={hero.ctaSecondary} secondaryHref="/pricing" />

@@ -93,6 +93,12 @@
    two-line stat strip. These heroes carry longer copy, so the grid is moved
    below the taller strip rather than sitting behind its labels. */
 .products-page.detail-page .hero-decor-dots{top:calc(810 * var(--k))}
+/* The band then grows to meet the grid halfway: 810 (its top) plus half of its
+   own height — 126 wide on a 548x452 asset — puts the blue/white seam through
+   the middle row of dots. */
+@media (min-width:1101px){
+  .products-page.detail-page .frame-hero{min-height:calc(862 * var(--k))}
+}
 
 /* --- Solution hero: art, dot grid and band height -------------------------
    The live /solutions hero is tuned to a tall transparent device render and a
@@ -100,11 +106,16 @@
    the art was cropped at the top of the band and the dot grid landed on top of
    the first stat label. The band gets more height, the art is scaled back and
    dropped clear of the header, and the dot grid is anchored to the bottom of
-   the band so it always sits under the stats. */
+   the band so it always sits under the stats.
+
+   The band's height comes from its own content plus a fixed bottom padding
+   rather than a fixed minimum: the three pages' stat strips end at different
+   heights, so one shared minimum left a different gap under each. Padding minus
+   half the dot grid leaves the same gap below the stats on every page. */
 @media (min-width:1101px){
-  .solutions-page.detail-page .frame-hero{min-height:calc(950 * var(--k))}
+  .solutions-page.detail-page .frame-hero{min-height:0}
   .solutions-page.detail-page .frame-hero-art{width:100%;margin:calc(34 * var(--k)) 0 0 0}
-  .solutions-page.detail-page .frame-hero-grid{min-height:calc(950 * var(--k))}
+  .solutions-page.detail-page .frame-hero-grid{padding-bottom:calc(100 * var(--k))}
 }
 
 /* The dot grid straddles the bottom of the blue band, half on the tint and half
@@ -127,4 +138,15 @@
 }
 @media (max-width:1100px){
   .solutions-page.detail-page .hero-dot-band{display:none}
+}
+
+/* The web back office hero carries a wide dashboard screenshot rather than the
+   tall device render the other product heroes use, so the shared -51 top margin
+   left it floating at the top of the band. Centring the art column vertically
+   suits a short, wide image better than any fixed offset, and it re-centres
+   itself if the screenshot is ever replaced with one of another height.
+   Desktop only: below 1100px the stacked layout sets its own spacing. */
+@media (min-width:1101px){
+  .web-back-office-page .frame-hero-art-wrap{align-self:center}
+  .web-back-office-page .frame-hero-art-products{margin-top:0}
 }

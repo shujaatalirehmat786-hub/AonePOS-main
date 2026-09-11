@@ -1,0 +1,8 @@
+/* The shared header paints white by default (.home-frame .hf-header). The
+   product, solution and home pages each override it to match the hero directly
+   beneath, but pricing, about and contact never did, so a white strip sat above
+   their tinted hero. Each rule below uses that page's own hero colour:
+   .pricing-hero and .frame-hero are #e8f8fd, .contact-hero is #e6f8fd. */
+.pricing-page .home-frame .hf-header{background:#e8f8fd}
+.about-page .home-frame .hf-header{background:#e8f8fd}
+.contact-page .home-frame .hf-header{background:#e6f8fd}

@@ -1,0 +1,28 @@
+/* Circular arrow badges.
+
+   Every arrow badge on the site is a circle except the one inside the eyebrow
+   pill, which was sized 30x25 (31x27 on contact) and so rendered as an ellipse.
+   The diameter is taken from the badge's existing height, not its width: the
+   about and contact pills are sized by their content, so growing the badge
+   would have made those pills taller and reflowed their heroes. Squaring to the
+   height leaves every baseline where it was. Both base rules already set
+   border-radius:50% and place-items:center, so the arrow stays centred.
+
+   Selectors are page-scoped to outrank the base rules whatever the bundler's
+   load order — contact.css ships with its route rather than the layout. */
+.inner-page .inner-pill .inner-arrow{width:25px;height:25px}
+.contact-page .contact-pill .contact-arrow{width:27px;height:27px}
+
+/* Optical centring. The arrow glyph sits low in its line box, so the homepage
+   badge lifts it with line-height:1 and padding-bottom:0.18em (border-box, so
+   the badge keeps its size). The inner and contact badges never got that and
+   rendered ~1.6-2.4px below centre; the same pair of declarations brings them
+   to within half a pixel at every font size those badges use. */
+.inner-page .inner-arrow,
+.contact-page .contact-arrow{line-height:1;padding-bottom:0.18em}
+
+/* The two solid button badges are a touch larger than the rest, which leaves
+   them ~0.9px low on the shared lift; a slightly deeper one lands them on the
+   centre line with everything else. */
+.inner-page .inner-primary .inner-arrow,
+.inner-page .inner-secondary .inner-arrow{padding-bottom:0.27em}

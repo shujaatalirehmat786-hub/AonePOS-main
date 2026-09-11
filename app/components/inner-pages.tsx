@@ -62,8 +62,8 @@ export function SiteHeader({ active }: { active: string }) {
     </button>
     <nav aria-label="Main navigation">
       <a className={link("home")} href="/">Home</a>
-      <div className="hf-products">
-        <a className="hf-products-link" href="/products" aria-haspopup="true">
+      <div className="hf-products hf-submenu">
+        <a className={`hf-submenu-link${active==="products" ? " active" : ""}`} href="/products" aria-haspopup="true">
           Products<span className="hf-nav-caret" aria-hidden="true" />
         </a>
         <div className="hf-product-dropdown">
