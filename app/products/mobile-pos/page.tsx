@@ -38,8 +38,8 @@ const data: ProductPageData = {
     label: "Why AOne POS",
     title: "Made for selling on your feet.",
     text: "Queue-busting, aisle sales, field orders and market stalls — anywhere the customer isn’t standing at a counter.",
-    image: "/assets/pos-dashboard.png",
-    imageAlt: "AOne POS mobile order screen",
+    image: "/assets/mobile-pos-why.png",
+    imageAlt: "AOne POS payment screen with tender options",
     points: [
       ["Queue busting", "Take the payment in the aisle before the customer reaches the till."],
       ["Field sales", "Take the order at the customer’s premises and put it on their account."],

@@ -35,8 +35,8 @@ const data: SolutionPageData = {
   checklist: {
     label: "Day to day",
     title: "The jobs that eat your week.",
-    image: "/assets/products-web-dashboard.png",
-    imageAlt: "AOne POS retail back office",
+    image: "/assets/retail-pos-settings.png",
+    imageAlt: "AOne POS back office settings, custom tender management",
     items: [
       "Import your entire range by CSV, including costs and barcodes",
       "Print shelf-edge and product labels from the same catalogue you sell from",
