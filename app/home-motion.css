@@ -264,3 +264,8 @@
 
 /* Reveal end-state must beat the directional from-states above: same specificity, so it has to come last. Without this the split sections stayed shifted (-26px / +24px) after revealing, on every viewport. */
 .hfr-on #home .hfr.hfr-in{opacity:1;transform:none}
+/* One from-state carries an element selector (`figure`), which outranks the
+   rule above by that one point, so the dashboard artwork alone never settled:
+   it kept translateX(24px), leaving it off-centre on every viewport and, once
+   the container goes full-width on phones, hanging past the right edge. */
+.hfr-on #home .hf-dashboard figure.hfr.hfr-in{transform:none}

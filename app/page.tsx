@@ -387,8 +387,8 @@ export default function Page() {
             </div>
             <figure>
               <img
-                src="/assets/tablet-pos-why.png"
-                alt="AOne POS running on a tablet"
+                src="/assets/back-office-store-details.png"
+                alt="AOne POS back office store settings"
               />
             </figure>
             <p className="hf-dashboard-copy">
