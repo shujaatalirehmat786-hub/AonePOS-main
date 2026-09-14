@@ -7,6 +7,7 @@ export const metadata: Metadata = {
 };
 
 const data: SolutionPageData = {
+  root: "retail-pos-page",
   hero: {
     eyebrow: "Retail POS",
     title: "Retail POS for shops with a lot of SKUs",
@@ -35,8 +36,8 @@ const data: SolutionPageData = {
   checklist: {
     label: "Day to day",
     title: "The jobs that eat your week.",
-    image: "/assets/retail-pos-settings.png",
-    imageAlt: "AOne POS back office settings, custom tender management",
+    image: "/assets/retail-pos-inventory.png",
+    imageAlt: "AOne POS inventory list with the CSV product import open",
     items: [
       "Import your entire range by CSV, including costs and barcodes",
       "Print shelf-edge and product labels from the same catalogue you sell from",
@@ -83,8 +84,8 @@ const data: SolutionPageData = {
     label: "Complete visibility",
     title: "Know what the shop did before you get there.",
     text: "Takings, tax, tender split and stock movement for every till, updated as sales happen. Open it from your phone on the way in.",
-    image: "/assets/figma-invoice-dashboard.png",
-    imageAlt: "AOne POS sales dashboard",
+    image: "/assets/retail-pos-settings.png",
+    imageAlt: "AOne POS back office settings, custom tender management",
   },
   closing: {
     label: "Get started",

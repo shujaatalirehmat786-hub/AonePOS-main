@@ -15,7 +15,7 @@ const data: SolutionPageData = {
     title: "Quick service POS that",
     highlight: "keeps the line moving.",
     text: "Order in, kitchen sees it, customer knows when it’s up. Kitchen display, kitchen printing, modifiers and an order screen — all in the base price.",
-    image: "/assets/pos-dashboard.png",
+    image: "/assets/tablet-pos-why.png",
     stats: [
       ["Included", "Kitchen display, no per-screen fee"],
       ["Instant", "Tickets route the moment they’re sent"],

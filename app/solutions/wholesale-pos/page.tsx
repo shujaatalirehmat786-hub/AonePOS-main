@@ -15,7 +15,7 @@ const data: SolutionPageData = {
     title: "Wholesale POS for the trade counter",
     highlight: "and cash-and-carry.",
     text: "Purchase orders, quantity-break pricing and customers who buy on account — with a till that can handle a pallet-sized order without slowing down.",
-    image: "/assets/solutions-warehouse.jpg",
+    image: "/assets/wholesale-hero.png",
     stats: [
       ["PO to receipt", "Purchasing and stock in one system"],
       ["On account", "Balances, part payments, settlement"],

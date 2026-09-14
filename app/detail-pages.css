@@ -244,3 +244,16 @@
   left:3%;top:20%;width:13%;height:auto;
   pointer-events:none;
 }
+
+/* --- Retail day-to-day artwork --------------------------------------------
+   The inventory screenshot is a dense table with a dialog over it, so this
+   section gives the artwork a larger share of the split (803/632 by default)
+   and a tighter gap. Scoped to this one section on this one page; the copy
+   column keeps enough width for its five bullets, and the stacked layout
+   below 1100px is untouched. */
+@media (min-width:1101px){
+  .retail-pos-page #daily .frame-split{
+    grid-template-columns:minmax(0,900fr) minmax(0,535fr);
+    gap:5%;
+  }
+}
