@@ -139,17 +139,19 @@ export function ProductDetailPage({ data }: { data: ProductPageData }) {
 export type SolutionPageData = {
   hero: { eyebrow: string; title: string; highlight: string; text: string; image: string; stats: Pair[]; ctaPrimary: string; ctaSecondary: string };
   capability: { label: string; title: string; text: string; cards: [string, string, string][] };
-  checklist: { label: string; title: string; text?: string; image: string; imageAlt: string; items: string[] };
+  checklist: { label: string; title: string; text?: string; image: string; imageAlt: string; items: string[]; panel?: boolean };
   how: { label: string; title: string; text?: string; steps: [string, string, string][] };
   compare: { label: string; title: string; text: string; column: string; rows: [string, string, string][] };
   audience: { label: string; title: string; text?: string; cards: [string, string, string][] };
   visibility: { label: string; title: string; text: string; image: string; imageAlt: string };
   closing: { label: string; title: string; text: string; primary: string; secondary: string };
+  // optional page-specific class, for sections that need their own tuning
+  root?: string;
 };
 
 export function SolutionDetailPage({ data }: { data: SolutionPageData }) {
   const { hero, capability, checklist, how, compare, audience, visibility, closing } = data;
-  return <div className="inner-page solutions-page detail-page">
+  return <div className={`inner-page solutions-page detail-page${data.root ? " " + data.root : ""}`}>
     <FrameHero active="solutions" eyebrow={hero.eyebrow} title={hero.title} highlight={hero.highlight}
       text={hero.text} image={hero.image} stats={hero.stats}
       ctaPrimary={hero.ctaPrimary} ctaSecondary={hero.ctaSecondary} secondaryHref="/pricing" dotBand />
@@ -162,7 +164,12 @@ export function SolutionDetailPage({ data }: { data: SolutionPageData }) {
     </div></section>
 
     <section className="frame-section frame-band" id="daily"><div className="inner-container frame-split">
-      <img className="photo-img" src={checklist.image} alt={checklist.imageAlt} />
+      {checklist.panel ? <div className="photo-panel">
+        <span className="photo-panel-disc photo-panel-disc-a" aria-hidden="true" />
+        <span className="photo-panel-disc photo-panel-disc-b" aria-hidden="true" />
+        <img className="photo-panel-dots" src="/assets/why-dot-grid.png" alt="" aria-hidden="true" />
+        <img className="photo-img" src={checklist.image} alt={checklist.imageAlt} />
+      </div> : <img className="photo-img" src={checklist.image} alt={checklist.imageAlt} />}
       <div>
         <span className="inner-label">{checklist.label}</span>
         <h2>{checklist.title}</h2>

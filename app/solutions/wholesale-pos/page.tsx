@@ -38,8 +38,8 @@ const data: SolutionPageData = {
   checklist: {
     label: "Counter and stockroom",
     title: "From goods-in to goods-out.",
-    image: "/assets/solutions-warehouse.jpg",
-    imageAlt: "Warehouse and trade counter operation",
+    image: "/assets/wholesale-inventory.png",
+    imageAlt: "AOne POS inventory import and product editing across desktop, terminal and phone",
     items: [
       "Scan on receiving, with barcode and alternate-SKU lookup",
       "Keep last purchase price per product so margin reflects what you paid",

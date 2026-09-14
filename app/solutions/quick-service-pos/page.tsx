@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 // Counter service only: no floor plan, table assignment, seat-level ordering or
 // check splitting by seat exists, so this page carries no table-service copy.
 const data: SolutionPageData = {
+  root: "quick-service-pos-page",
   hero: {
     eyebrow: "Quick service POS",
     title: "Quick service POS that",
@@ -37,8 +38,9 @@ const data: SolutionPageData = {
   checklist: {
     label: "Service",
     title: "Built around the rush.",
-    image: "/assets/solutions-hero-hardware.jpg",
+    image: "/assets/quick-service-devices.png",
     imageAlt: "Counter service hardware running AOne POS",
+    panel: true,
     items: [
       "Dine-in and to-go on the same ticket",
       "Hold and recall an order without losing the customer’s place in the queue",
@@ -85,8 +87,8 @@ const data: SolutionPageData = {
     label: "Complete visibility",
     title: "See the rush before it hits.",
     text: "Sales by hour, by product and by staff member — so you can staff the counter for when it’s actually busy, not when you think it is.",
-    image: "/assets/figma-invoice-dashboard.png",
-    imageAlt: "AOne POS sales dashboard",
+    image: "/assets/quick-service-orders.png",
+    imageAlt: "AOne POS orders list, filtered by employee, payment method and date",
   },
   closing: {
     label: "Get started",
