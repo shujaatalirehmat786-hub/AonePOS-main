@@ -5,8 +5,8 @@ import { SiteFooter, SiteHeader } from "../components/inner-pages";
 import "./contact.css";
 
 const EMAIL = "info@aonepos.com";
-const PHONE_DISPLAY = "+866-882-4292";
-const PHONE_HREF = "tel:+18668824292";
+const PHONE_DISPLAY = "+1 800-506-1022";
+const PHONE_HREF = "tel:+18005061022";
 const ADDRESS = "2727 Lyndon B Johnson Fwy #1050, Dallas, TX 75234";
 const MAP_EMBED = `https://www.google.com/maps?q=${encodeURIComponent(ADDRESS)}&z=15&output=embed`;
 const MAP_DIRECTIONS = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(ADDRESS)}`;

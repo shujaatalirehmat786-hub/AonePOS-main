@@ -46,7 +46,7 @@ export function LegalPage({
           <div className="legal-contact">
             <h3>Anything here you want explained?</h3>
             <p>
-              Email info@aonepos.com or call +866-882-4292 and a person in
+              Email info@aonepos.com or call +1 800-506-1022 and a person in
               Dallas will answer — not a form that goes nowhere.
             </p>
             <address>
